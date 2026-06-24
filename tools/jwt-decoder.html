@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JWT Decoder &mdash; anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Decode JSON Web Tokens. Inspect header, payload, and signature. No verification, no data sent to server.">
+<meta name="keywords" content="jwt decoder, jwt parser, json web token, jwt online">
+<link rel="canonical" href="https://anan.zh.kg/tools/jwt-decoder.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/tools/">Tools</a> / <span>JWT Decoder</span></div>
+    <div class="eyebrow">TOOL 18</div>
+    <h1>JWT Decoder</h1>
+    <p class="lede">Decode JSON Web Tokens. Inspect header, payload, and signature. No verification, no data sent to server.</p>
+    <div class="meta-line" data-lu="2026-06-24"></div>
+  </div>
+</section>
+
+<section class="wrap tool-section">
+<div class="tool-panel">
+  <label>JWT</label>
+  <textarea id="input" rows="4">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</textarea>
+</div>
+<div class="tool-panel" style="margin-top:24px">
+  <label>Header</label>
+  <pre id="header" class="mono">—</pre>
+</div>
+<div class="tool-panel" style="margin-top:24px">
+  <label>Payload</label>
+  <pre id="payload" class="mono">—</pre>
+</div>
+<div class="tool-panel" style="margin-top:24px">
+  <label>Signature</label>
+  <pre id="sig" class="mono">—</pre>
+  <div id="exp" class="hint" style="margin-top:8px"></div>
+</div>
+<section class="tool-prose">
+  <h2>JWT structure</h2>
+  <p>A JWT has three parts: <code>header.payload.signature</code>. Each part is Base64URL-encoded JSON.</p>
+  <h3>This tool does not verify</h3>
+  <p>It only decodes. <strong>Never trust JWT data without server-side signature verification.</strong></p>
+</section>
+</section>
+
+<section class="wrap related-section">
+  <div class="eyebrow">RELATED TOOLS</div>
+  <div class="related-grid"><a class="tool-card" href="/tools/uuid-generator.html"><h3>UUID Generator</h3><p>Generate UUIDs in v1, v4, v5 and v7 versions</p></a><a class="tool-card" href="/tools/base64.html"><h3>Base64 Encode / Decode</h3><p>Encode and decode Base64 strings</p></a><a class="tool-card" href="/tools/url-encoder.html"><h3>URL Encoder / Decoder</h3><p>Percent-encode and decode URLs</p></a><a class="tool-card" href="/tools/md5-hash.html"><h3>MD5 Hash Generator</h3><p>Generate MD5 hash from any text</p></a><a class="tool-card" href="/tools/sha-hash.html"><h3>SHA Hash Generator</h3><p>Generate SHA-1, SHA-256 and SHA-512 hashes</p></a><a class="tool-card" href="/tools/html-escape.html"><h3>HTML Escape / Unescape</h3><p>Escape and unescape HTML entities</p></a></div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+<script src="/assets/js/jwt-decoder.js"></script>
+</body>
+</html>

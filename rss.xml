@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>anan.zh.kg Blog</title>
+  <link>https://anan.zh.kg/blog/</link>
+  <description>Deep dives, references and cheatsheets for developers.</description>
+  <language>en-us</language>
+  <item>
+    <title>What is UUID v7</title>
+    <link>https://anan.zh.kg/blog/what-is-uuid-v7.html</link>
+    <description>UUID v7 is the new time-sortable UUID standard. Learn why it matters.</description>
+    <pubDate>Tue, 24 Jun 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Base64 Explained</title>
+    <link>https://anan.zh.kg/blog/base64-explained.html</link>
+    <description>What Base64 actually is, how it works, and what it is not.</description>
+    <pubDate>Tue, 24 Jun 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>JWT Structure: A Visual Guide</title>
+    <link>https://anan.zh.kg/blog/jwt-structure.html</link>
+    <description>Decode any JWT. Understand the header, payload, and signature.</description>
+    <pubDate>Tue, 24 Jun 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Cron Syntax Cheatsheet</title>
+    <link>https://anan.zh.kg/blog/cron-syntax.html</link>
+    <description>Every cron pattern you will ever need.</description>
+    <pubDate>Tue, 24 Jun 2026 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>JSON vs YAML: When to Use Which</title>
+    <link>https://anan.zh.kg/blog/json-vs-yaml.html</link>
+    <description>Two formats, one job. Understand the tradeoffs.</description>
+    <pubDate>Tue, 24 Jun 2026 00:00:00 GMT</pubDate>
+  </item>
+</channel>
+</rss>

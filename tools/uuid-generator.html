@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UUID Generator &mdash; anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Generate UUIDs in v1, v4, v5 and v7 versions. Bulk mode, JSON / CSV / SQL output. Cryptographically secure.">
+<meta name="keywords" content="uuid generator, uuid v4, uuid v7, online uuid, bulk uuid">
+<link rel="canonical" href="https://anan.zh.kg/tools/uuid-generator.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/tools/">Tools</a> / <span>UUID Generator</span></div>
+    <div class="eyebrow">TOOL 01</div>
+    <h1>UUID Generator</h1>
+    <p class="lede">Generate UUIDs in v1, v4, v5 and v7 versions. Bulk mode, JSON / CSV / SQL output. Cryptographically secure.</p>
+    <div class="meta-line" data-lu="2026-06-24"></div>
+  </div>
+</section>
+
+<section class="wrap tool-section">
+<div class="tool-grid">
+<div class="tool-panel">
+  <div class="field"><label>Version</label>
+    <select id="version">
+      <option value="v4">v4 (random)</option>
+      <option value="v1">v1 (timestamp)</option>
+      <option value="v7">v7 (sortable)</option>
+      <option value="v5">v5 (name-based)</option>
+    </select>
+  </div>
+  <div class="field"><label>Namespace (v5 only)</label><input type="text" id="name" placeholder="anan.zh.kg"></div>
+  <div class="field"><label>Count</label><input type="number" id="count" min="1" max="1000" value="5"></div>
+  <div class="field"><label>Output format</label>
+    <select id="format">
+      <option value="plain">Plain</option>
+      <option value="json">JSON</option>
+      <option value="csv">CSV</option>
+      <option value="sql">SQL INSERT</option>
+    </select>
+  </div>
+  <div class="field-row">
+    <label><input type="checkbox" id="uppercase"> UPPERCASE</label>
+    <label><input type="checkbox" id="hyphens" checked> hyphens</label>
+    <label><input type="checkbox" id="brace"> {braces}</label>
+  </div>
+  <button id="generate" class="btn primary">Generate</button>
+</div>
+<div class="tool-panel">
+  <div class="output-head"><label>Output</label><button data-copy="#out" class="btn ghost small">Copy</button></div>
+  <textarea id="out" readonly rows="14"></textarea>
+</div>
+</div>
+<section class="tool-prose">
+  <h2>What is a UUID?</h2>
+  <p>A <strong>UUID</strong> (Universally Unique Identifier) is a 128-bit label used to uniquely identify information in computer systems.</p>
+  <h3>Versions</h3>
+  <ul>
+    <li><strong>v1</strong> &mdash; time-based. Includes timestamp and MAC address.</li>
+    <li><strong>v4</strong> &mdash; random. Most common. 122 bits of randomness.</li>
+    <li><strong>v5</strong> &mdash; name-based (SHA-1 hash). Deterministic.</li>
+    <li><strong>v7</strong> &mdash; time-ordered, sortable, random. New RFC 9562 standard.</li>
+  </ul>
+  <h3>When to use which</h3>
+  <p>Use <strong>v4</strong> for most cases. Use <strong>v7</strong> when you need database-friendly ordering. Use <strong>v5</strong> when you need deterministic IDs from a name.</p>
+</section>
+</section>
+
+<section class="wrap related-section">
+  <div class="eyebrow">RELATED TOOLS</div>
+  <div class="related-grid"><a class="tool-card" href="/tools/base64.html"><h3>Base64 Encode / Decode</h3><p>Encode and decode Base64 strings</p></a><a class="tool-card" href="/tools/url-encoder.html"><h3>URL Encoder / Decoder</h3><p>Percent-encode and decode URLs</p></a><a class="tool-card" href="/tools/md5-hash.html"><h3>MD5 Hash Generator</h3><p>Generate MD5 hash from any text</p></a><a class="tool-card" href="/tools/sha-hash.html"><h3>SHA Hash Generator</h3><p>Generate SHA-1, SHA-256 and SHA-512 hashes</p></a><a class="tool-card" href="/tools/html-escape.html"><h3>HTML Escape / Unescape</h3><p>Escape and unescape HTML entities</p></a><a class="tool-card" href="/tools/json-formatter.html"><h3>JSON Formatter & Validator</h3><p>Format, minify and validate JSON</p></a></div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+<script src="/assets/js/uuid-generator.js"></script>
+</body>
+</html>

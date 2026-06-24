@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JWT Structure: A Visual Guide — anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Decode any JWT. Understand the header, payload, signature, and how to verify tokens safely.">
+<meta name="keywords" content="jwt, json web token, jwt structure, jwt decoder, jwt explained">
+<link rel="canonical" href="https://anan.zh.kg/blog/jwt-structure.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="blog-article">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Authentication</span></div>
+    <header class="article-head">
+      <div class="eyebrow">DEEP DIVE</div>
+      <h1>JWT Structure: A Visual Guide</h1>
+      <div class="article-meta">
+        <span class="meta-date">2026-06-24</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-time">7 min read min read</span>
+      </div>
+    </header>
+    <div class="article-body">
+<p>JSON Web Tokens (JWTs) are the de-facto standard for API authentication in 2026. If you have ever logged into a web app, you have a JWT. But what is actually inside that <code>eyJ...</code> string?</p>
+
+<h2>The three parts</h2>
+<p>A JWT is three Base64URL-encoded JSON objects, joined by dots:</p>
+<pre class="mono">header.payload.signature</pre>
+<p>For example:</p>
+<pre class="mono">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+  .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+  .SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</pre>
+<p>Each part is independently Base64URL-decodable. There is no encryption &mdash; the payload is plaintext, readable by anyone with the token.</p>
+
+<h2>Header</h2>
+<p>The header describes the algorithm and token type:</p>
+<pre class="json">{
+  "alg": "HS256",
+  "typ": "JWT"
+}</pre>
+<p>Common algorithms:</p>
+<ul>
+  <li><strong>HS256 / HS384 / HS512</strong> &mdash; HMAC with a shared secret</li>
+  <li><strong>RS256 / RS384 / RS512</strong> &mdash; RSA signature (asymmetric)</li>
+  <li><strong>ES256 / ES384 / ES512</strong> &mdash; ECDSA (asymmetric, more compact)</li>
+  <li><strong>EdDSA</strong> &mdash; Ed25519 (modern, fast, secure)</li>
+  <li><strong>none</strong> &mdash; no signature. <strong>Never use this in production.</strong></li>
+</ul>
+
+<h2>Payload</h2>
+<p>The payload contains the claims &mdash; statements about the user and the token:</p>
+<pre class="json">{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+  "exp": 1516242622
+}</pre>
+<p>Standard claims:</p>
+<ul>
+  <li><strong>iss</strong> &mdash; issuer (who created the token)</li>
+  <li><strong>sub</strong> &mdash; subject (who the token is about)</li>
+  <li><strong>aud</strong> &mdash; audience (who the token is intended for)</li>
+  <li><strong>exp</strong> &mdash; expiration time (seconds since epoch)</li>
+  <li><strong>nbf</strong> &mdash; not before (token invalid until this time)</li>
+  <li><strong>iat</strong> &mdash; issued at</li>
+  <li><strong>jti</strong> &mdash; unique token ID (for revocation lists)</li>
+</ul>
+<p>You can also add custom claims (like <code>name</code>, <code>role</code>, <code>email</code>) for application-specific data.</p>
+
+<h2>Signature</h2>
+<p>The signature is computed over the first two parts:</p>
+<pre class="mono">HMAC-SHA256(
+  base64url(header) + "." + base64url(payload),
+  secret
+)</pre>
+<p>For HS256, the server uses a shared secret. For RS256/ES256, the server uses a private key. Anyone with the public key can verify the signature, but only the holder of the private key can create it.</p>
+
+<h2>What JWT is not</h2>
+<ul>
+  <li><strong>Not encrypted</strong> &mdash; the payload is readable by anyone. If you need encryption, use JWE.</li>
+  <li><strong>Not a session</strong> &mdash; JWTs are stateless. Revocation requires additional infrastructure (deny lists, short expirations, refresh tokens).</li>
+  <li><strong>Not invulnerable</strong> &mdash; <code>alg: none</code>, weak secrets, and algorithm confusion attacks have all been exploited in the wild.</li>
+</ul>
+
+<h2>How to verify</h2>
+<p>On every request:</p>
+<ol>
+  <li>Split the token on dots.</li>
+  <li>Base64URL-decode the header and payload.</li>
+  <li>Check the algorithm is one you expect (do not trust the header).</li>
+  <li>Verify the signature using the appropriate key.</li>
+  <li>Check <code>exp</code>, <code>nbf</code>, <code>iss</code>, <code>aud</code>.</li>
+  <li>Use the claims to authorize the request.</li>
+</ol>
+
+<p>Inspect any JWT with our <a href="/tools/jwt-decoder.html">JWT Decoder</a>.</p>
+    </div>
+    <aside class="article-cta">
+      <p>Try it now:</p>
+      <a class="btn primary" href="/tools/jwt-decoder.html">Open the JWT Decoder &rarr;</a>
+    </aside>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>

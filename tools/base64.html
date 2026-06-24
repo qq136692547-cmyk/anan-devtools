@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Base64 Encode / Decode &mdash; anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Encode and decode Base64 strings. URL-safe variant, full UTF-8 support. All processing happens in your browser.">
+<meta name="keywords" content="base64 encoder, base64 decoder, base64 to text, base64 online">
+<link rel="canonical" href="https://anan.zh.kg/tools/base64.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/tools/">Tools</a> / <span>Base64 Encode / Decode</span></div>
+    <div class="eyebrow">TOOL 02</div>
+    <h1>Base64 Encode / Decode</h1>
+    <p class="lede">Encode and decode Base64 strings. URL-safe variant, full UTF-8 support. All processing happens in your browser.</p>
+    <div class="meta-line" data-lu="2026-06-24"></div>
+  </div>
+</section>
+
+<section class="wrap tool-section">
+<div class="tool-grid two-col">
+<div class="tool-panel">
+  <label>Input</label>
+  <textarea id="input" rows="12">Hello, anan.zh.kg!</textarea>
+  <div class="field-row" style="margin-top:12px">
+    <label><input type="radio" name="mode" id="encode" checked> Encode</label>
+    <label><input type="radio" name="mode" id="decode"> Decode</label>
+    <label><input type="checkbox" id="urlsafe"> URL-safe</label>
+  </div>
+  <div style="margin-top:12px">
+    <button id="swap" class="btn ghost small">Swap</button>
+    <button data-clear="#input" class="btn ghost small">Clear</button>
+  </div>
+</div>
+<div class="tool-panel">
+  <div class="output-head"><label>Output</label><button data-copy="#output" class="btn ghost small">Copy</button></div>
+  <textarea id="output" readonly rows="12"></textarea>
+</div>
+</div>
+<section class="tool-prose">
+  <h2>What is Base64?</h2>
+  <p>Base64 is a binary-to-text encoding scheme that represents binary data using a set of 64 ASCII characters: <code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>/</code>, and <code>=</code> for padding.</p>
+  <h3>Common uses</h3>
+  <ul>
+    <li>Embedding images in HTML/CSS</li>
+    <li>Encoding email attachments (MIME)</li>
+    <li>JWT tokens</li>
+  </ul>
+</section>
+</section>
+
+<section class="wrap related-section">
+  <div class="eyebrow">RELATED TOOLS</div>
+  <div class="related-grid"><a class="tool-card" href="/tools/uuid-generator.html"><h3>UUID Generator</h3><p>Generate UUIDs in v1, v4, v5 and v7 versions</p></a><a class="tool-card" href="/tools/url-encoder.html"><h3>URL Encoder / Decoder</h3><p>Percent-encode and decode URLs</p></a><a class="tool-card" href="/tools/md5-hash.html"><h3>MD5 Hash Generator</h3><p>Generate MD5 hash from any text</p></a><a class="tool-card" href="/tools/sha-hash.html"><h3>SHA Hash Generator</h3><p>Generate SHA-1, SHA-256 and SHA-512 hashes</p></a><a class="tool-card" href="/tools/html-escape.html"><h3>HTML Escape / Unescape</h3><p>Escape and unescape HTML entities</p></a><a class="tool-card" href="/tools/json-formatter.html"><h3>JSON Formatter & Validator</h3><p>Format, minify and validate JSON</p></a></div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+<script src="/assets/js/base64.js"></script>
+</body>
+</html>

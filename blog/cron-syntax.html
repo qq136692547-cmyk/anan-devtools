@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cron Syntax Cheatsheet — anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Every cron pattern you will ever need, plus the gotchas (DST, overlapping runs, timezone).">
+<meta name="keywords" content="cron, crontab, cron syntax, cron expression, cron cheatsheet">
+<link rel="canonical" href="https://anan.zh.kg/blog/cron-syntax.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="blog-article">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Scheduling</span></div>
+    <header class="article-head">
+      <div class="eyebrow">REFERENCE</div>
+      <h1>Cron Syntax Cheatsheet</h1>
+      <div class="article-meta">
+        <span class="meta-date">2026-06-24</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-time">5 min read min read</span>
+      </div>
+    </header>
+    <div class="article-body">
+<p>Cron is the scheduler that runs most of the internet. Every database backup, every log rotation, every daily email digest, every weekly report &mdash; all running on cron. Yet most developers only know the basics. Let us fix that.</p>
+
+<h2>The 5 fields</h2>
+<p>A standard cron expression has 5 space-separated fields:</p>
+<pre class="mono">* * * * *  command
+| | | | |
+| | | | +----- day of week (0-6, Sunday=0)
+| | | +------- month (1-12)
+| | +--------- day of month (1-31)
+| +----------- hour (0-23)
++------------- minute (0-59)</pre>
+<p>There is also an extended 6-field syntax used by some schedulers (Quartz, Spring) that adds seconds at the front.</p>
+
+<h2>Special characters</h2>
+<p>Cron has only four special characters, but they compose into infinite patterns:</p>
+<ul>
+  <li><code>*</code> &mdash; any value. <code>* * * * *</code> runs every minute.</li>
+  <li><code>,</code> &mdash; list. <code>0 9,12,18 * * *</code> runs at 9am, 12pm, and 6pm.</li>
+  <li><code>-</code> &mdash; range. <code>0 9-17 * * *</code> runs every hour from 9am to 5pm.</li>
+  <li><code>/</code> &mdash; step. <code>*/15 * * * *</code> runs every 15 minutes.</li>
+</ul>
+<p>You can combine them: <code>0 9-17/2 * * 1-5</code> means weekdays from 9am to 5pm, every 2 hours.</p>
+
+<h2>Predefined aliases</h2>
+<p>Most cron implementations support these shortcuts:</p>
+<ul>
+  <li><code>@yearly</code> / <code>@annually</code> &mdash; <code>0 0 1 1 *</code></li>
+  <li><code>@monthly</code> &mdash; <code>0 0 1 * *</code></li>
+  <li><code>@weekly</code> &mdash; <code>0 0 * * 0</code></li>
+  <li><code>@daily</code> / <code>@midnight</code> &mdash; <code>0 0 * * *</code></li>
+  <li><code>@hourly</code> &mdash; <code>0 * * * *</code></li>
+  <li><code>@reboot</code> &mdash; once at startup</li>
+</ul>
+
+<h2>Common patterns</h2>
+<ul>
+  <li>Every 5 minutes: <code>*/5 * * * *</code></li>
+  <li>Every 15 minutes: <code>*/15 * * * *</code></li>
+  <li>Every weekday at 9am: <code>0 9 * * 1-5</code></li>
+  <li>First day of every month at midnight: <code>0 0 1 * *</code></li>
+  <li>Every Sunday at 3am: <code>0 3 * * 0</code></li>
+  <li>Twice a day (9am and 9pm): <code>0 9,21 * * *</code></li>
+  <li>Every 30 seconds (Quartz only): <code>*/30 * * * * *</code></li>
+</ul>
+
+<h2>Gotchas</h2>
+<p><strong>Day-of-month AND day-of-week:</strong> When both fields are restricted (not <code>*</code>), cron uses OR, not AND. <code>0 0 1 * 1</code> runs on the 1st of the month AND on every Monday &mdash; not on the 1st when it is a Monday.</p>
+<p><strong>Timezone:</strong> Cron runs in the system timezone. <code>0 9 * * *</code> means 9am in the server&apos;s timezone, not yours. Always check with <code>TZ=UTC date</code>.</p>
+<p><strong>DST:</strong> Cron jobs can be skipped or run twice during daylight saving transitions. Use <code>TZ=Etc/UTC</code> or your distribution&apos;s <code>cronie</code> with timezone support.</p>
+<p><strong>Overlapping runs:</strong> If a job takes longer than the cron interval, multiple instances can run simultaneously. Use file locks (<code>flock</code>) or a queue.</p>
+
+<p>Parse and test cron expressions with our <a href="/tools/cron-parser.html">Cron Parser</a>.</p>
+    </div>
+    <aside class="article-cta">
+      <p>Try it now:</p>
+      <a class="btn primary" href="/tools/cron-parser.html">Open the Cron Parser &rarr;</a>
+    </aside>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>

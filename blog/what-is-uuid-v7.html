@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>What is UUID v7 — anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="UUID v7 is the new time-sortable UUID standard. Learn why it matters, when to use it, and how it compares to v4.">
+<meta name="keywords" content="uuid v7, uuid, rfc 9562, sortable uuid, time-based uuid">
+<link rel="canonical" href="https://anan.zh.kg/blog/what-is-uuid-v7.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="blog-article">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>UUID, deep dive</span></div>
+    <header class="article-head">
+      <div class="eyebrow">DEEP DIVE</div>
+      <h1>What is UUID v7</h1>
+      <div class="article-meta">
+        <span class="meta-date">2026-06-24</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-time">5 min read min read</span>
+      </div>
+    </header>
+    <div class="article-body">
+<p>UUID v7 is the newest member of the UUID family, standardized in <strong>RFC 9562 in May 2024</strong>. It solves the biggest practical problem with UUID v4: <strong>unpredictable insertion order in databases</strong>.</p>
+
+<h2>The problem with UUID v4</h2>
+<p>UUID v4 is 122 bits of pure randomness. It is the de-facto standard for most applications, but it has one major drawback:</p>
+<p>When you insert millions of v4 UUIDs into a database, they are scattered randomly across the B-tree index. Every insert is essentially a random I/O operation. On a hot table, this destroys performance.</p>
+<p>Compare this to auto-increment IDs, which always append to the end of the index. Inserts are sequential, writes are fast, and the index stays compact.</p>
+
+<h2>Enter UUID v7</h2>
+<p>UUID v7 packs a <strong>48-bit Unix timestamp in milliseconds</strong> into the most significant bits, followed by random bits and the version/variant markers:</p>
+<pre class="mono"> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           unix_ts_ms                          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          unix_ts_ms           |  ver  |       rand_a          |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|var|                        rand_b                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            rand_b                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</pre>
+<p>The result: a UUID that is <strong>lexicographically sortable by creation time</strong>, while still containing 74 bits of randomness.</p>
+
+<h2>Why v7 beats v4 for databases</h2>
+<ul>
+  <li><strong>Sorted indexes</strong> &mdash; v7 UUIDs sort by time, so B-tree inserts are append-only.</li>
+  <li><strong>Compact storage</strong> &mdash; v7 maintains the same 16-byte / 128-bit storage as v4.</li>
+  <li><strong>No coordination</strong> &mdash; like all UUIDs, you can generate them anywhere without a central server.</li>
+  <li><strong>Privacy</strong> &mdash; unlike v1, v7 does not embed a MAC address.</li>
+  <li><strong>Embeddable timestamp</strong> &mdash; you can extract the creation time from a v7 UUID without a separate column.</li>
+</ul>
+
+<h2>When to use v4 vs v7</h2>
+<p>Use <strong>v4</strong> when:</p>
+<ul>
+  <li>You want maximum unpredictability (security tokens, one-time IDs).</li>
+  <li>You do not care about insertion order.</li>
+  <li>You are generating IDs client-side at high rates.</li>
+</ul>
+<p>Use <strong>v7</strong> when:</p>
+<ul>
+  <li>You are inserting into a database with a UUID primary key.</li>
+  <li>You want time-ordered events (audit logs, message queues).</li>
+  <li>You want to extract the creation time from the ID itself.</li>
+</ul>
+
+<h2>Browser support</h2>
+<p>As of 2026, no browser ships <code>crypto.randomUUID()</code> for v7. The function always returns v4. For v7, you need a small library or a few lines of custom code using <code>crypto.getRandomValues()</code> and <code>Date.now()</code>.</p>
+
+<p>Try generating v7 UUIDs with our <a href="/tools/uuid-generator.html">UUID Generator</a>.</p>
+    </div>
+    <aside class="article-cta">
+      <p>Try it now:</p>
+      <a class="btn primary" href="/tools/uuid-generator.html">Open the UUID Generator &rarr;</a>
+    </aside>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>

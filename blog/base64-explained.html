@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Base64 Explained — anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="What Base64 actually is, how it works, what it is not (not encryption!), and where you see it in the wild.">
+<meta name="keywords" content="base64, base64 encoding, base64 explained, what is base64">
+<link rel="canonical" href="https://anan.zh.kg/blog/base64-explained.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="blog-article">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Encoding</span></div>
+    <header class="article-head">
+      <div class="eyebrow">DEEP DIVE</div>
+      <h1>Base64 Explained</h1>
+      <div class="article-meta">
+        <span class="meta-date">2026-06-24</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-time">6 min read min read</span>
+      </div>
+    </header>
+    <div class="article-body">
+<p>Base64 is everywhere in software. It is the encoding your JWT uses, the way your browser embeds images in CSS, the format of your SSH public key file, and the encoding of every MIME email attachment. But what is it, really?</p>
+
+<h2>What Base64 is not</h2>
+<p>Base64 is <strong>not encryption</strong>. It is not a hash. It is not compression. It is a <strong>binary-to-text encoding</strong> &mdash; a way to represent arbitrary binary data using only printable ASCII characters.</p>
+<p>There is no key, no secret, no obfuscation. Anyone who sees a Base64 string can decode it instantly. If you need security, use encryption (AES, ChaCha20). If you need integrity, use a hash (SHA-256).</p>
+
+<h2>The 64 characters</h2>
+<p>Base64 uses 64 characters to encode data: the uppercase letters A-Z, lowercase a-z, digits 0-9, and two more characters (usually <code>+</code> and <code>/</code>). The 65th character, <code>=</code>, is used for padding.</p>
+<p>Why these characters? Because they are all printable, all safe to transmit over text-only channels (email, URLs, JSON), and they exist in every character encoding (ASCII, UTF-8, Latin-1).</p>
+
+<h2>How it works</h2>
+<p>Base64 takes binary data in chunks of <strong>3 bytes (24 bits)</strong> and splits each chunk into <strong>4 groups of 6 bits</strong>. Each 6-bit group (0-63) is mapped to one of the 64 characters.</p>
+<p>3 bytes &rarr; 4 characters. The output is always 33% larger than the input (rounded up).</p>
+<p>If the input is not a multiple of 3 bytes, the output is padded with <code>=</code> characters to make it a multiple of 4.</p>
+
+<h2>URL-safe Base64</h2>
+<p>Standard Base64 uses <code>+</code> and <code>/</code>, which have special meaning in URLs and file names. The URL-safe variant (RFC 4648 &sect;5) replaces them with <code>-</code> and <code>_</code>, and typically omits the padding.</p>
+<p>This is the variant used in JWTs, JWS, JWE, and most modern web APIs.</p>
+
+<h2>Common uses</h2>
+<ul>
+  <li><strong>JWT tokens</strong> &mdash; header, payload, signature are all Base64URL-encoded JSON</li>
+  <li><strong>Data URIs</strong> &mdash; <code>data:image/png;base64,iVBORw0K...</code> embeds images in HTML/CSS</li>
+  <li><strong>MIME email</strong> &mdash; attachments are Base64-encoded so they survive text-only mail servers</li>
+  <li><strong>SSH keys</strong> &mdash; <code>-----BEGIN RSA PUBLIC KEY-----</code> contains Base64-encoded ASN.1</li>
+  <li><strong>Basic auth</strong> &mdash; <code>Authorization: Basic dXNlcjpwYXNz</code> is just <code>base64("user:pass")</code></li>
+  <li><strong>Git objects</strong> &mdash; Git stores content as Base64 internally</li>
+</ul>
+
+<h2>Performance note</h2>
+<p>Base64 has a 33% size overhead. For large binary blobs (images, video), prefer actual binary transfer (multipart/form-data, raw bytes over WebSocket). Use Base64 only when you must fit binary data into a text-only context.</p>
+
+<p>Encode and decode with our <a href="/tools/base64.html">Base64 tool</a>.</p>
+    </div>
+    <aside class="article-cta">
+      <p>Try it now:</p>
+      <a class="btn primary" href="/tools/base64.html">Open the Base64 tool &rarr;</a>
+    </aside>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>

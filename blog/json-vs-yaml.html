@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JSON vs YAML: When to Use Which — anan.zh.kg</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Two formats, one job. Understand the tradeoffs, the Norway problem, and pick the right tool.">
+<meta name="keywords" content="json vs yaml, json, yaml, data serialization, configuration">
+<link rel="canonical" href="https://anan.zh.kg/blog/json-vs-yaml.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">AT</span>
+      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<article class="blog-article">
+  <div class="wrap">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span>Data formats</span></div>
+    <header class="article-head">
+      <div class="eyebrow">COMPARISON</div>
+      <h1>JSON vs YAML: When to Use Which</h1>
+      <div class="article-meta">
+        <span class="meta-date">2026-06-24</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-time">4 min read min read</span>
+      </div>
+    </header>
+    <div class="article-body">
+<p>JSON and YAML are the two dominant data serialization formats in modern software. JSON rules the web. YAML rules DevOps. But they overlap, and choosing between them matters.</p>
+
+<h2>Syntax comparison</h2>
+<p>The same data, two ways:</p>
+<p><strong>JSON:</strong></p>
+<pre class="json">{
+  "name": "anan.zh.kg",
+  "version": 1,
+  "tools": ["uuid", "base64", "json"],
+  "active": true,
+  "maintainer": {
+    "name": "deng",
+    "email": "hi@anan.zh.kg"
+  }
+}</pre>
+<p><strong>YAML:</strong></p>
+<pre class="yaml">name: anan.zh.kg
+version: 1
+tools:
+  - uuid
+  - base64
+  - json
+active: true
+maintainer:
+  name: deng
+  email: hi@anan.zh.kg</pre>
+
+<h2>When to use JSON</h2>
+<ul>
+  <li><strong>APIs and web services</strong> &mdash; universal browser and language support</li>
+  <li><strong>Data interchange</strong> &mdash; the lingua franca of HTTP, message queues, and storage</li>
+  <li><strong>Schemas</strong> &mdash; paired with JSON Schema for validation</li>
+  <li><strong>When speed matters</strong> &mdash; JSON parsers are 5-10x faster than YAML parsers</li>
+</ul>
+
+<h2>When to use YAML</h2>
+<ul>
+  <li><strong>Configuration files</strong> &mdash; Kubernetes, GitHub Actions, Ansible, Docker Compose, CI pipelines</li>
+  <li><strong>Human-edited data</strong> &mdash; comments, multi-line strings, anchors are YAML strengths</li>
+  <li><strong>Documentation</strong> &mdash; OpenAPI specs, Swagger, Postman exports</li>
+  <li><strong>When readability matters more than speed</strong></li>
+</ul>
+
+<h2>YAML features JSON cannot match</h2>
+<ul>
+  <li><strong>Comments</strong> &mdash; <code># this is a comment</code></li>
+  <li><strong>Anchors and aliases</strong> &mdash; DRY: <code>&amp;anchor *ref</code></li>
+  <li><strong>Multi-line strings</strong> &mdash; <code>|</code> literal, <code>&gt;</code> folded</li>
+  <li><strong>References to other documents</strong> &mdash; multi-file configs</li>
+  <li><strong>No quotes required</strong> &mdash; cleaner for most strings</li>
+</ul>
+
+<h2>JSON features YAML cannot match</h2>
+<ul>
+  <li><strong>Speed</strong> &mdash; JSON is 5-10x faster to parse and serialize</li>
+  <li><strong>Strictness</strong> &mdash; no Norway problem, no truthy string surprises</li>
+  <li><strong>Universal support</strong> &mdash; every language, every browser, every tool</li>
+  <li><strong>Smaller output</strong> &mdash; 10-30% less whitespace</li>
+</ul>
+
+<h2>The Norway problem</h2>
+<p>YAML 1.1 had a notorious surprise: <code>no</code> is parsed as boolean false. So <code>country: Norway</code> became <code>{country: false}</code>. YAML 1.2 (2009) fixed this, but many parsers default to 1.1 for compatibility. <strong>Always quote your strings</strong> when in doubt: <code>country: "Norway"</code>.</p>
+
+<h2>Practical advice</h2>
+<p>Use <strong>JSON</strong> for any data that crosses a network boundary or is consumed by a program.</p>
+<p>Use <strong>YAML</strong> for configuration files written and maintained by humans.</p>
+<p>If you need both, the YAML spec has a <code>!!json</code> tag to embed JSON inline, and most JSON files are valid YAML (with caveats around comments and strictness).</p>
+
+<p>Format your JSON with our <a href="/tools/json-formatter.html">JSON Formatter</a>.</p>
+    </div>
+    <aside class="article-cta">
+      <p>Try it now:</p>
+      <a class="btn primary" href="/tools/json-formatter.html">Open the JSON Formatter &rarr;</a>
+    </aside>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-mark">AT</span>
+          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </div>
+        <p class="dim">Developer tools, made simple.</p>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
+          <li><a href="/tools/base64.html">Base64</a></li>
+          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
+          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
+          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
+          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
+          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+  </div>
+</footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://anan.zh.kg/sitemap.xml
