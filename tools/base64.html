@@ -8,7 +8,7 @@
 <meta name="keywords" content="base64 encoder, base64 decoder, base64 to text, base64 online">
 <link rel="canonical" href="https://anan.zh.kg/tools/base64.html">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
@@ -16,12 +16,12 @@
   <div class="wrap header-inner">
     <a class="logo" href="/">
       <span class="logo-mark">AT</span>
-      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+      <span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span>
     </a>
     <nav class="primary-nav">
-      <a href="/tools/">Tools</a>
-      <a href="/blog/">Blog</a>
-      <a href="/about/">About</a>
+      <a href="/tools/" class="active">tools</a>
+      <a href="/blog/">blog</a>
+      <a href="/about/">about</a>
     </nav>
   </div>
 </header>
@@ -29,11 +29,11 @@
 <main>
 <section class="tool-hero">
   <div class="wrap">
-    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/tools/">Tools</a> / <span>Base64 Encode / Decode</span></div>
-    <div class="eyebrow">TOOL 02</div>
-    <h1>Base64 Encode / Decode</h1>
+    <div class="breadcrumbs"><a href="/">~</a> / <a href="/tools/">tools</a> / <span>Base64 Encode / Decode</span></div>
+    <div class="eyebrow">tool 02 &middot; encoding</div>
+    <h1>Base64 Encode / Decode<span class="blink"></span></h1>
     <p class="lede">Encode and decode Base64 strings. URL-safe variant, full UTF-8 support. All processing happens in your browser.</p>
-    <div class="meta-line" data-lu="2026-06-24"></div>
+    <div class="meta-line"><span class="dot">&bull;</span>100% client-side<span class="dot">&bull;</span>no tracking<span class="dot">&bull;</span>last updated 2026-06-24</div>
   </div>
 </section>
 
@@ -70,8 +70,8 @@
 </section>
 
 <section class="wrap related-section">
-  <div class="eyebrow">RELATED TOOLS</div>
-  <div class="related-grid"><a class="tool-card" href="/tools/uuid-generator.html"><h3>UUID Generator</h3><p>Generate UUIDs in v1, v4, v5 and v7 versions</p></a><a class="tool-card" href="/tools/url-encoder.html"><h3>URL Encoder / Decoder</h3><p>Percent-encode and decode URLs</p></a><a class="tool-card" href="/tools/md5-hash.html"><h3>MD5 Hash Generator</h3><p>Generate MD5 hash from any text</p></a><a class="tool-card" href="/tools/sha-hash.html"><h3>SHA Hash Generator</h3><p>Generate SHA-1, SHA-256 and SHA-512 hashes</p></a><a class="tool-card" href="/tools/html-escape.html"><h3>HTML Escape / Unescape</h3><p>Escape and unescape HTML entities</p></a><a class="tool-card" href="/tools/json-formatter.html"><h3>JSON Formatter & Validator</h3><p>Format, minify and validate JSON</p></a></div>
+  <div class="eyebrow">related</div>
+  <div class="related-grid"><a class="tool-card" href="/tools/uuid-generator.html"><div class="tool-num">01 / encoding</div><h3>UUID Generator</h3><p>Generate UUIDs in v1, v4, v5 and v7 versions.</p></a><a class="tool-card" href="/tools/url-encoder.html"><div class="tool-num">03 / encoding</div><h3>URL Encoder / Decoder</h3><p>Percent-encode and decode URLs.</p></a><a class="tool-card" href="/tools/md5-hash.html"><div class="tool-num">04 / hash</div><h3>MD5 Hash Generator</h3><p>Generate MD5 hash from any text.</p></a><a class="tool-card" href="/tools/sha-hash.html"><div class="tool-num">05 / hash</div><h3>SHA Hash Generator</h3><p>Generate SHA-1, SHA-256 and SHA-512 hashes.</p></a><a class="tool-card" href="/tools/html-escape.html"><div class="tool-num">06 / encoding</div><h3>HTML Escape / Unescape</h3><p>Escape and unescape HTML entities.</p></a><a class="tool-card" href="/tools/json-formatter.html"><div class="tool-num">07 / formatter</div><h3>JSON Formatter & Validator</h3><p>Format, minify and validate JSON.</p></a></div>
 </section>
 </main>
 
@@ -79,14 +79,14 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div class="logo">
+        <a class="logo" href="/">
           <span class="logo-mark">AT</span>
-          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
-        </div>
+          <span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </a>
         <p class="dim">Developer tools, made simple.</p>
       </div>
       <div>
-        <h4>Tools</h4>
+        <h4>tools</h4>
         <ul>
           <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
           <li><a href="/tools/base64.html">Base64</a></li>
@@ -96,7 +96,7 @@
         </ul>
       </div>
       <div>
-        <h4>Learn</h4>
+        <h4>learn</h4>
         <ul>
           <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
           <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
@@ -105,15 +105,16 @@
         </ul>
       </div>
       <div>
-        <h4>Site</h4>
+        <h4>site</h4>
         <ul>
           <li><a href="/about/">About</a></li>
           <li><a href="/privacy/">Privacy</a></li>
-          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
         </ul>
       </div>
     </div>
-    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; hosted on github pages &middot; v1.0</p>
   </div>
 </footer>
 <script src="/assets/js/shared.js"></script>

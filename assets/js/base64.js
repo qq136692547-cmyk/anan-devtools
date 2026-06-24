@@ -21,8 +21,8 @@
       var s = btoa(bin);
       if (urlSafe.checked) s = s.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
       output.value = s;
-      out.classList.remove('err');
-    } catch(e) { output.value = 'Error: ' + e.message; out.classList.add('err'); }
+      output.classList.remove('err');
+    } catch(e) { output.value = 'Error: ' + e.message; output.classList.add('err'); }
   }
   function doDecode() {
     try {
@@ -33,8 +33,8 @@
       var bytes = new Uint8Array(bin.length);
       for (var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
       output.value = bytesToUtf8(bytes);
-      out.classList.remove('err');
-    } catch(e) { output.value = 'Error: ' + e.message; out.classList.add('err'); }
+      output.classList.remove('err');
+    } catch(e) { output.value = 'Error: ' + e.message; output.classList.add('err'); }
   }
   enc.addEventListener('click', doEncode);
   dec.addEventListener('click', doDecode);

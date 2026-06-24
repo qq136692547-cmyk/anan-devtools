@@ -7,7 +7,7 @@
 <meta name="description" content="What is anan.zh.kg and why we built it.">
 <link rel="canonical" href="https://anan.zh.kg/about/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
@@ -15,20 +15,20 @@
   <div class="wrap header-inner">
     <a class="logo" href="/">
       <span class="logo-mark">AT</span>
-      <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+      <span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span>
     </a>
     <nav class="primary-nav">
-      <a href="/tools/">Tools</a>
-      <a href="/blog/">Blog</a>
-      <a href="/about/">About</a>
+      <a href="/tools/">tools</a>
+      <a href="/blog/">blog</a>
+      <a href="/about/" class="active">about</a>
     </nav>
   </div>
 </header>
 <main>
 <section class="page-hero">
   <div class="wrap">
-    <div class="eyebrow">ABOUT</div>
-    <h1>Twenty tools, one job: not getting in your way.</h1>
+    <div class="eyebrow">$ cat about.md</div>
+    <h1>Twenty tools, one job: not getting in your way.<span class="blink"></span></h1>
   </div>
 </section>
 <section class="wrap prose-section">
@@ -44,7 +44,7 @@
 <p>This also means the site is fully static and served from GitHub Pages. The total cost of running it is zero.</p>
 
 <h2>The design</h2>
-<p>The design is deliberately tool-like, not blog-like. Sharp 4px corners, monospace for data, high-density layouts, no shadows or rounded blobs. Every page is built to load in under 200ms and to be readable on a phone in a meeting room.</p>
+<p>The design is deliberately tool-like, not blog-like. Monospace for data, terminal-style prompts in the navigation, sharp 4px corners, high-density layouts, no shadows or rounded blobs. Every page is built to load in under 200ms and to be readable on a phone in a meeting room.</p>
 
 <h2>Source code</h2>
 <p>Everything is open source. <a href="https://github.com/qq136692547-cmyk/anan-devtools">github.com/qq136692547-cmyk/anan-devtools</a>. Issues and pull requests welcome.</p>
@@ -57,14 +57,14 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div class="logo">
+        <a class="logo" href="/">
           <span class="logo-mark">AT</span>
-          <span class="logo-text">anan<span class="dim">.zh.kg</span></span>
-        </div>
+          <span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span>
+        </a>
         <p class="dim">Developer tools, made simple.</p>
       </div>
       <div>
-        <h4>Tools</h4>
+        <h4>tools</h4>
         <ul>
           <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
           <li><a href="/tools/base64.html">Base64</a></li>
@@ -74,7 +74,7 @@
         </ul>
       </div>
       <div>
-        <h4>Learn</h4>
+        <h4>learn</h4>
         <ul>
           <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
           <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
@@ -83,15 +83,16 @@
         </ul>
       </div>
       <div>
-        <h4>Site</h4>
+        <h4>site</h4>
         <ul>
           <li><a href="/about/">About</a></li>
           <li><a href="/privacy/">Privacy</a></li>
-          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source on GitHub</a></li>
+          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
         </ul>
       </div>
     </div>
-    <p class="copyright">&copy; 2026 anan.zh.kg &middot; Hosted on GitHub Pages</p>
+    <p class="copyright">&copy; 2026 anan.zh.kg &middot; hosted on github pages &middot; v1.0</p>
   </div>
 </footer>
 <script src="/assets/js/shared.js"></script>
