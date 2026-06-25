@@ -1,6 +1,6 @@
 /* ============================================================
-   anan.zh.kg 鈥?visual system v2
-   "Terminal-meets-IDE" 鈥?80s terminal + modern editor
+   anan.zh.kg 闁?visual system v2
+   "Terminal-meets-IDE" 闁?80s terminal + modern editor
    
    Signature: monospace ASCII art banners + dot grid background
    Avoids: cream+terracotta / black+acid-green / broadsheet
@@ -10,22 +10,22 @@
    ============================================================ */
 
 :root {
-  /* Color tokens 鈥?4 hex */
+  /* Color tokens 闁?4 hex */
   --bg:         #0B0E13;  /* deeper terminal black */
   --surface:    #12161D;  /* card surface */
   --surface-2:  #1A1F29;  /* raised surface */
   --line:       #232831;  /* hairlines */
-  --ink:        #E8EAED;  /* primary text 鈥?cool white */
+  --ink:        #E8EAED;  /* primary text 闁?cool white */
   --ink-soft:   #9CA3AF;  /* secondary */
   --ink-dim:    #5C6370;  /* tertiary */
-  --accent:     #FF6B1A;  /* ember 鈥?kept for brand consistency */
+  --accent:     #FF6B1A;  /* ember 闁?kept for brand consistency */
   --accent-2:   #FFB454;  /* accent hover */
   --accent-bg:  rgba(255, 107, 26, 0.08);
   --good:       #4ADE80;
   --bad:        #F87171;
   --info:       #60A5FA;
 
-  /* Type 鈥?2 roles */
+  /* Type 闁?2 roles */
   --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
@@ -44,13 +44,13 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Signature: subtle dot grid 鈥?terminal CRT scanline vibe */
+  /* Signature: subtle dot grid 闁?terminal CRT scanline vibe */
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -58,7 +58,7 @@ body {
   font-feature-settings: 'cv11', 'ss01';
 }
 
-/* Selection 鈥?ember */
+/* Selection 闁?ember */
 ::selection { background: var(--accent); color: var(--bg); }
 
 /* Reduced motion */
@@ -82,7 +82,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--s-5); }
 
 /* ============================================================
-   HEADER 鈥?terminal-style with prompt
+   HEADER 闁?terminal-style with prompt
    ============================================================ */
 .site-header {
   background: rgba(11, 14, 19, 0.85);
@@ -140,7 +140,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 }
 
 /* ============================================================
-   EYEBROW 鈥?terminal tag style
+   EYEBROW 闁?terminal tag style
    ============================================================ */
 .eyebrow {
   display: inline-flex; align-items: center; gap: var(--s-2);
@@ -158,7 +158,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 }
 
 /* ============================================================
-   HERO 鈥?signature ASCII art banner + thesis headline
+   HERO 闁?signature ASCII art banner + thesis headline
    ============================================================ */
 .hero {
   padding: var(--s-8) 0 var(--s-8);
@@ -230,7 +230,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .meta-line .dot { color: var(--accent); margin: 0 6px; }
 
 /* ============================================================
-   BUTTONS 鈥?sharp + monospace
+   BUTTONS 闁?sharp + monospace
    ============================================================ */
 .btn {
   display: inline-flex; align-items: center; gap: var(--s-2);
@@ -255,8 +255,9 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
   background: var(--accent-2);
   border-color: var(--accent-2);
   color: var(--bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -4px rgba(255, 107, 26, 0.4);
 }
-.btn.ghost {
   background: transparent;
   color: var(--ink);
   border-color: var(--line);
@@ -271,7 +272,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .cta-row { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-top: var(--s-3); }
 
 /* ============================================================
-   TOOL CARDS 鈥?denser, terminal-influenced
+   TOOL CARDS 闁?denser, terminal-influenced
    ============================================================ */
 .tools-grid {
   display: grid;
@@ -288,12 +289,16 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
   text-decoration: none;
   color: var(--ink);
   position: relative;
-  transition: all .15s ease;
+  transition: background .15s ease, transform .15s ease, border-color .15s ease, box-shadow .15s ease;
   display: block;
+  border: 1px solid transparent;
 }
 .tool-card:hover {
   background: var(--surface-2);
   color: var(--ink);
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px -4px rgba(255, 107, 26, 0.25);
 }
 .tool-card::before {
   content: '';
@@ -734,15 +739,23 @@ textarea[readonly] {
   margin-top: var(--s-3);
 }
 .feature {
+.feature {
   background: var(--surface);
   padding: var(--s-4);
+  transition: background .15s ease;
 }
-.feature-icon {
+.feature:hover { background: var(--surface-2); }
   font-size: 1.3rem;
   margin-bottom: var(--s-2);
 }
 .feature h3 { font-family: var(--font-mono); font-size: .95rem; margin-bottom: var(--s-2); }
 .feature p { font-size: .85rem; color: var(--ink-soft); margin: 0; }
+.feature-icon {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: var(--s-2);
+}
 
 /* ============================================================
    CTA SECTION
@@ -830,4 +843,68 @@ textarea[readonly] {
   .wrap { padding: 0 var(--s-4); }
   .tool-section, .cat-section, .blog-grid-section, .features-section, .cta-section { padding-left: var(--s-4); padding-right: var(--s-4); }
   .article-cta { flex-direction: column; align-items: flex-start; }
+}
+
+main { scroll-margin-top: 80px; }
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--bg);
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  transition: top .15s ease;
+}
+.skip-link:focus { top: 0; }
+
+/* ========== SCROLLBAR (dark theme) ========== */
+html {
+  scrollbar-color: var(--line) var(--bg);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--surface-2); }
+
+/* ========== PRINT ========== */
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .site-header, .site-footer, .skip-link, .nav-cta { display: none !important; }
+  a { color: #000 !important; text-decoration: underline; }
+}
+
+/* ========== TOOL OUTPUT / PREVIEW ========== */
+.preview-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.md-preview { padding: var(--s-3); }
+.md-preview h1, .md-preview h2, .md-preview h3 { margin-top: var(--s-3); }
+.md-preview h1:first-child, .md-preview h2:first-child, .md-preview h3:first-child { margin-top: 0; }
+.md-preview p { color: var(--ink); line-height: 1.65; }
+.md-preview code { font-family: var(--font-mono); background: var(--surface-2); padding: 2px 6px; border-radius: 3px; font-size: .9em; }
+.md-preview pre { background: var(--surface-2); padding: var(--s-3); border-radius: var(--radius); overflow-x: auto; }
+.md-preview pre code { background: transparent; padding: 0; }
+.md-preview a { color: var(--accent-2); }
+.md-preview a:hover { color: var(--accent); }
+.md-preview ul, .md-preview ol { padding-left: var(--s-5); }
+.md-preview blockquote { border-left: 3px solid var(--accent); padding-left: var(--s-3); color: var(--ink-soft); margin: var(--s-3) 0; }
+
+/* ========== CODE BLOCKS ========== */
+pre {
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  background: var(--surface-2);
+  color: var(--ink);
+  padding: var(--s-3);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 0 0 var(--s-3);
+  border: 1px solid var(--line);
+}
+pre.json, pre.yaml, pre.code {
+  /* convention: these are syntax-tagged code blocks */
 }
