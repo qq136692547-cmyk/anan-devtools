@@ -1,12 +1,17 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>anan.zh.kg &mdash; Developer Tools, Made Simple</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Free online developer tools: UUID generator, Base64 encoder, JSON formatter, JWT decoder, Unix timestamp converter, regex tester and 15+ more. No login. No tracking. Open source.">
+<meta name="description" content="Free online developer tools: UUID generator, Base64 encoder, JSON formatter, JWT decoder, Unix timestamp converter, regex tester and 18+ more. No login. No tracking. Open source.">
 <meta name="keywords" content="uuid generator, base64 encoder, json formatter, jwt decoder, unix timestamp, regex tester, developer tools">
 <link rel="canonical" href="https://anan.zh.kg/">
+<meta property="og:title" content="anan.zh.kg &mdash; Developer Tools, Made Simple">
+<meta property="og:description" content="22 client-side developer tools. No login. No tracking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anan.zh.kg/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
@@ -19,7 +24,7 @@
       <span class="logo-mark">AT</span>
       <span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span>
     </a>
-    <nav class="primary-nav">
+    <nav class="primary-nav" aria-label="Primary">
       <a href="/tools/" class="active" aria-current="page">tools</a>
       <a href="/blog/">blog</a>
       <a href="/about/">about</a>
@@ -30,206 +35,454 @@
 <main id="main">
 <section class="hero">
   <div class="wrap">
-<pre class="ascii-art">    _    _   _ _   _ _____ ____      _    ____  ____      _    ___ _   _ _____
+    <pre class="ascii-art">    _    _   _ _   _ _____ ____      _    ____  ____      _    ___ _   _ _____
    / \  | \ | | \ | | ____|  _ \    / \  |  _ \/ ___|    / \  |_ _| \ | | ____|
   / _ \ |  \| |  \| |  _| | |_) |  / _ \ | | | \___ \   / _ \  | ||  \| |  _|
  / ___ \| |\  | |\  | |___|  _ <  / ___ \| |_| |___) | / ___ \ | || |\  | |___
 /_/   \_\_| \_|_| \_|_____|_| \_\/_/   \_\____/|____//_/   \_\___|_| \_|_____|</pre>
-    <div class="eyebrow">20 tools &middot; 0 trackers &middot; 100% client-side</div>
+    <div class="eyebrow">22 tools &middot; 0 trackers &middot; 100% client-side &middot; MIT</div>
+
     <h1>Developer tools,<br>made <span class="accent">simple</span>.<span class="blink"></span></h1>
-    <p class="lede">Twenty utilities for the things you actually do every day &mdash; generate a UUID, encode some Base64, decode a JWT, format a JSON. Everything runs in your browser. Nothing leaves your machine.</p>
+    <p class="lede">Twenty-two utilities for the things you actually do every day &mdash; generate a UUID, encode some Base64, decode a JWT, format a JSON. Everything runs in your browser. Nothing leaves your machine.</p>
+
+    <div class="cmd-bar" tabindex="0" role="search" aria-label="Search tools">
+      <input class="cmd-input" type="text" placeholder="Search 22 tools&hellip; (try 'json', 'base64', 'uuid')" id="cmdSearch" autocomplete="off" aria-label="Search tools" />
+      <span class="cmd-kbd"><span class="kbd">Ctrl</span> <span class="kbd">K</span></span>
+      <div class="cmd-results" id="cmdResults" role="listbox" aria-label="Tool results"></div>
+    </div>
+
     <div class="cta-row">
       <a class="btn primary" href="/tools/">$ ls tools/ &rarr;</a>
       <a class="btn ghost" href="https://github.com/qq136692547-cmyk/anan-devtools">$ git clone</a>
     </div>
-    <div class="meta-line"><span class="dot">&bull;</span>all data stays local<span class="dot">&bull;</span>no signup<span class="dot">&bull;</span>open source<span class="dot">&bull;</span>MIT license</div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-n" data-count="22">22</span>
+        <span class="hero-stat-l">tools &middot; 6 categories</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-n">&lt;100<span style="font-size:.7em">ms</span></span>
+        <span class="hero-stat-l">cold start &middot; client-side</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-n">0<span style="font-size:.7em">B</span></span>
+        <span class="hero-stat-l">data uploaded &middot; forever</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-n">MIT</span>
+        <span class="hero-stat-l">license &middot; open source</span>
+      </div>
+    </div>
+
+    <div class="demo" role="region" aria-label="Live tool demo">
+      <div class="demo-titlebar">
+        <div class="demo-traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="demo-tabs" role="tablist">
+          <button class="demo-tab is-active" role="tab" aria-selected="true" data-tab="base64">
+            <span class="demo-tab-icon">&gt;_</span> base64-encoder
+            <span class="demo-tab-kbd"><span class="kbd">B</span></span>
+          </button>
+          <button class="demo-tab" role="tab" aria-selected="false" data-tab="uuid">
+            <span class="demo-tab-icon">&gt;_</span> uuid-generator
+            <span class="demo-tab-kbd"><span class="kbd">U</span></span>
+          </button>
+          <button class="demo-tab" role="tab" aria-selected="false" data-tab="json">
+            <span class="demo-tab-icon">&gt;_</span> json-formatter
+            <span class="demo-tab-kbd"><span class="kbd">J</span></span>
+          </button>
+          <button class="demo-tab" role="tab" aria-selected="false" data-tab="jwt">
+            <span class="demo-tab-icon">&gt;_</span> jwt-decoder
+            <span class="demo-tab-kbd"><span class="kbd">T</span></span>
+          </button>
+          <button class="demo-tab" role="tab" aria-selected="false" data-tab="cron">
+            <span class="demo-tab-icon">&gt;_</span> cron-parser
+            <span class="demo-tab-kbd"><span class="kbd">C</span></span>
+          </button>
+        </div>
+        <div class="demo-actions">
+          <button class="demo-btn" type="button" onclick="window.location='/tools/base64.html'">open &rarr;</button>
+          <button class="demo-btn is-primary" type="button" onclick="document.querySelector('.demo').scrollIntoView({behavior:'smooth'})">copy</button>
+        </div>
+      </div>
+
+      <div class="demo-tabpanel is-active" data-panel="base64" role="tabpanel">
+        <div class="demo-panel">
+          <div class="demo-label"><span>// input &middot; utf-8</span><span class="demo-status">live</span></div>
+<pre class="demo-code"><span class="tok-com"># Base64 encoder &middot; reads bytes, returns ascii</span>
+<span class="tok-key">input</span>  = <span class="tok-str">"Hello, anan.zh.kg! 馃檪"</span>
+<span class="tok-key">bytes</span>  = utf8(input)
+<span class="tok-key">output</span> = base64(bytes)
+
+<span class="tok-com"># run</span>
+&gt; encode(input)</pre>
+        </div>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// output &middot; 24 chars</span><span class="demo-status">valid</span></div>
+<pre class="demo-code"><span class="tok-pun">{</span>
+  <span class="tok-key">"input"</span>:  <span class="tok-str">"Hello, anan.zh.kg! 馃檪"</span>,
+  <span class="tok-key">"bytes"</span>:  <span class="tok-num">22</span>,
+  <span class="tok-key">"output"</span>: <span class="tok-str">"SGVsbG8sIGFuYW4uemgua2ch8J+YgQ=="</span>,
+  <span class="tok-key">"urlsafe"</span>: <span class="tok-bool">false</span>,
+  <span class="tok-key">"roundtrip"</span>: <span class="tok-bool">true</span>
+<span class="tok-pun">}</span>
+
+<span class="tok-com"># decoded back &harr; 0 loss</span>
+<span class="tok-key">decoded</span> = decode(<span class="tok-str">"SGVsbG8&hellip;"</span>)
+assert decoded == input  <span class="tok-com">鈥?ok</span></pre>
+        </div>
+      </div>
+
+      <div class="demo-tabpanel" data-panel="uuid" role="tabpanel" hidden>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// version &middot; v4 (random)</span><span class="demo-status">live</span></div>
+<pre class="demo-code"><span class="tok-com"># UUID v4 &middot; 122 bits of randomness</span>
+<span class="tok-key">count</span> = <span class="tok-num">5</span>
+<span class="tok-key">format</span> = <span class="tok-str">"hyphenated"</span>
+
+<span class="tok-com"># run</span>
+&gt; generate(count, format)</pre>
+        </div>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// output &middot; 5 ids</span><span class="demo-status">unique</span></div>
+<pre class="demo-code"><span class="tok-pun">[</span>
+  <span class="tok-str">"f47ac10b-58cc-4372-a567-0e02b2c3d479"</span>,
+  <span class="tok-str">"7c9e6679-7425-40de-944b-e07fc1f90ae7"</span>,
+  <span class="tok-str">"550e8400-e29b-41d4-a716-446655440000"</span>,
+  <span class="tok-str">"a3bb189e-8bf9-3888-9912-ace4e6543002"</span>,
+  <span class="tok-str">"6ba7b810-9dad-11d1-80b4-00c04fd430c8"</span>
+<span class="tok-pun">]</span>
+
+<span class="tok-com"># collision chance: 1 in 2^122</span>
+<span class="tok-com"># also: v1, v5, v7 supported</span></pre>
+        </div>
+      </div>
+
+      <div class="demo-tabpanel" data-panel="json" role="tabpanel" hidden>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// input &middot; minified</span><span class="demo-status">live</span></div>
+<pre class="demo-code"><span class="tok-com"># JSON formatter &middot; 2-space indent</span>
+<span class="tok-key">input</span>  = <span class="tok-str">'{"name":"anan","tools":22,"client":true}'</span>
+<span class="tok-key">indent</span> = <span class="tok-num">2</span>
+<span class="tok-key">sort</span>   = <span class="tok-bool">false</span>
+
+<span class="tok-com"># run</span>
+&gt; format(input, indent, sort)</pre>
+        </div>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// output &middot; pretty</span><span class="demo-status">valid</span></div>
+<pre class="demo-code"><span class="tok-pun">{</span>
+  <span class="tok-key">"name"</span>:   <span class="tok-str">"anan"</span>,
+  <span class="tok-key">"tools"</span>:  <span class="tok-num">22</span>,
+  <span class="tok-key">"client"</span>: <span class="tok-bool">true</span>,
+  <span class="tok-key">"license"</span>: <span class="tok-str">"MIT"</span>,
+  <span class="tok-key">"trackers"</span>: <span class="tok-num">0</span>,
+  <span class="tok-key">"updated"</span>: <span class="tok-str">"2026-06-26"</span>
+<span class="tok-pun">}</span>
+
+<span class="tok-com"># 26 bytes &rarr; 142 bytes 鈥?readable</span></pre>
+        </div>
+      </div>
+
+      <div class="demo-tabpanel" data-panel="jwt" role="tabpanel" hidden>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// token &middot; HS256</span><span class="demo-status">live</span></div>
+<pre class="demo-code"><span class="tok-com"># JWT decoder &middot; no verification (client-side)</span>
+<span class="tok-key">token</span> = <span class="tok-str">"eyJhbGciOiJIUzI1NiJ9.eyJzdWI&hellip;"</span>
+
+<span class="tok-com"># runs decode only, no signature check</span>
+&gt; decode(token)</pre>
+        </div>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// output &middot; 3 parts</span><span class="demo-status">decoded</span></div>
+<pre class="demo-code"><span class="tok-com">// header</span>
+<span class="tok-pun">{</span> <span class="tok-key">"alg"</span>: <span class="tok-str">"HS256"</span>, <span class="tok-key">"typ"</span>: <span class="tok-str">"JWT"</span> <span class="tok-pun">}</span>
+
+<span class="tok-com">// payload</span>
+<span class="tok-pun">{</span>
+  <span class="tok-key">"sub"</span>: <span class="tok-str">"u_1029"</span>,
+  <span class="tok-key">"name"</span>: <span class="tok-str">"Ada"</span>,
+  <span class="tok-key">"iat"</span>: <span class="tok-num">1719475200</span>,
+  <span class="tok-key">"exp"</span>: <span class="tok-num">1722067200</span>
+<span class="tok-pun">}</span>
+
+<span class="tok-com">// signature 鈥?verify on your server</span></pre>
+        </div>
+      </div>
+
+      <div class="demo-tabpanel" data-panel="cron" role="tabpanel" hidden>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// expression</span><span class="demo-status">live</span></div>
+<pre class="demo-code"><span class="tok-com"># cron parser &middot; standard 5-field</span>
+<span class="tok-key">expr</span> = <span class="tok-str">"*/15 9-17 * * MON-FRI"</span>
+
+<span class="tok-com"># runs in browser, no server</span>
+&gt; parse(expr)</pre>
+        </div>
+        <div class="demo-panel">
+          <div class="demo-label"><span>// output &middot; human + next 5</span><span class="demo-status">parsed</span></div>
+<pre class="demo-code"><span class="tok-com">// every 15 min, 9am-5pm, weekdays</span>
+<span class="tok-key">human</span>: <span class="tok-str">"At minute 0/15/30/45 past hour 9-17, Mon-Fri"</span>
+
+<span class="tok-key">next</span>:
+  - <span class="tok-str">"2026-06-27 09:00:00"</span>
+  - <span class="tok-str">"2026-06-27 09:15:00"</span>
+  - <span class="tok-str">"2026-06-27 09:30:00"</span>
+  - <span class="tok-str">"2026-06-27 09:45:00"</span>
+  - <span class="tok-str">"2026-06-27 10:00:00"</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <p class="meta-line" style="margin-top: var(--s-5)"><span class="dot">&bull;</span>all data stays local<span class="dot">&bull;</span>no signup<span class="dot">&bull;</span>open source<span class="dot">&bull;</span>MIT license</p>
   </div>
+</section>
+
+<section class="trust-strip" aria-label="Trust indicators">
+  <span class="trust-item"><span class="trust-num">22</span> tools &middot; 6 categories</span>
+  <span class="trust-sep">/</span>
+  <span class="trust-item"><span class="trust-num">0</span> cookies &middot; 0 trackers</span>
+  <span class="trust-sep">/</span>
+  <span class="trust-item"><span class="trust-num">100%</span> client-side</span>
+  <span class="trust-sep">/</span>
+  <span class="trust-item"><span class="trust-num">MIT</span> licensed &middot; GitHub</span>
 </section>
 
 <section class="wrap features-section">
-  <div class="eyebrow">why anan</div>
-  <div class="features-grid">
-    <div class="feature">
-      <div class="feature-icon">&gt;_</div>
-      <h3>Instant</h3>
-      <p>Every tool opens and runs in under 100ms. No spinners, no waiting, no "loading".</p>
+  <div class="eyebrow">how it works</div>
+  <h2>Three steps. No setup. No signup.</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-n">1</div>
+      <h3>Open the tool</h3>
+      <p>Pick from 22 utilities &mdash; or hit <span class="kbd">Ctrl</span> <span class="kbd">K</span> to search. Each page is a single static HTML file that loads instantly.</p>
     </div>
-    <div class="feature">
-      <div class="feature-icon">[ ]</div>
-      <h3>Private</h3>
-      <p>100% client-side. Your code, hashes, and tokens never touch a server. Ever.</p>
+    <div class="how-step">
+      <div class="how-step-n">2</div>
+      <h3>Paste your input</h3>
+      <p>Type, paste, or drag-drop. Everything is processed in your browser via JavaScript. No network round-trip, no server.</p>
     </div>
-    <div class="feature">
-      <div class="feature-icon">#</div>
-      <h3>Offline</h3>
-      <p>Once loaded, every tool works without network. Bookmark for emergencies.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">$_</div>
-      <h3>Focused</h3>
-      <p>One job per page. No upsells, no popups, no "subscribe to continue".</p>
+    <div class="how-step">
+      <div class="how-step-n">3</div>
+      <h3>Copy the result</h3>
+      <p>One click to copy. The result is never stored, never logged, never sent anywhere. Close the tab and it&rsquo;s gone.</p>
     </div>
   </div>
 </section>
 
-<section class="wrap" style="padding: var(--s-6) var(--s-5)">
-  <div class="eyebrow">all tools</div>
-  <div class="tools-grid">
-    <a class="tool-card" href="/tools/uuid-generator.html">
-      <div class="tool-num">01 / encoding</div>
-      <h3>UUID Generator</h3>
-      <p>v1 &middot; v4 &middot; v5 &middot; v7. Bulk generate, copy as JSON or CSV.</p>
-    </a>
-    <a class="tool-card" href="/tools/base64.html">
-      <div class="tool-num">02 / encoding</div>
-      <h3>Base64 Encode / Decode</h3>
-      <p>Text and file to/from Base64. URL-safe variant supported.</p>
-    </a>
-    <a class="tool-card" href="/tools/url-encoder.html">
-      <div class="tool-num">03 / encoding</div>
-      <h3>URL Encoder</h3>
-      <p>Percent-encode / decode. Encode full URLs or components.</p>
-    </a>
-    <a class="tool-card" href="/tools/md5-hash.html">
-      <div class="tool-num">04 / hash</div>
-      <h3>MD5 Hash</h3>
-      <p>Generate MD5 from text. Pure JS implementation.</p>
-    </a>
-    <a class="tool-card" href="/tools/sha-hash.html">
-      <div class="tool-num">05 / hash</div>
-      <h3>SHA Hash</h3>
-      <p>SHA-1, SHA-256, SHA-512. HMAC supported.</p>
-    </a>
-    <a class="tool-card" href="/tools/html-escape.html">
-      <div class="tool-num">06 / encoding</div>
-      <h3>HTML Escape</h3>
-      <p>Escape &amp; unescape HTML entities. Safe for templates.</p>
-    </a>
-    <a class="tool-card" href="/tools/json-formatter.html">
-      <div class="tool-num">07 / formatter</div>
-      <h3>JSON Formatter</h3>
-      <p>Format, minify, validate JSON. Tree view with collapse.</p>
-    </a>
-    <a class="tool-card" href="/tools/markdown-to-html.html">
-      <div class="tool-num">08 / formatter</div>
-      <h3>Markdown &rarr; HTML</h3>
-      <p>Convert Markdown to clean HTML. Live preview.</p>
-    </a>
-    <a class="tool-card" href="/tools/sql-formatter.html">
-      <div class="tool-num">09 / formatter</div>
-      <h3>SQL Formatter</h3>
-      <p>Beautify SQL with keyword uppercase, indent options.</p>
-    </a>
-    <a class="tool-card" href="/tools/css-formatter.html">
-      <div class="tool-num">10 / formatter</div>
-      <h3>CSS Formatter</h3>
-      <p>Beautify or minify CSS. Custom indent size.</p>
-    </a>
-    <a class="tool-card" href="/tools/xml-formatter.html">
-      <div class="tool-num">11 / formatter</div>
-      <h3>XML Formatter</h3>
-      <p>Format, minify, validate XML with error reporting.</p>
-    </a>
-    <a class="tool-card" href="/tools/unix-timestamp.html">
-      <div class="tool-num">12 / time</div>
-      <h3>Unix Timestamp</h3>
-      <p>Convert epoch to human date. s &middot; ms &middot; &micro;s &middot; ns.</p>
-    </a>
-    <a class="tool-card" href="/tools/cron-parser.html">
-      <div class="tool-num">13 / time</div>
-      <h3>Cron Parser</h3>
-      <p>Parse cron expression. Show next 10 run times.</p>
-    </a>
-    <a class="tool-card" href="/tools/timezone-converter.html">
-      <div class="tool-num">14 / time</div>
-      <h3>Timezone Converter</h3>
-      <p>Convert time between any two timezones.</p>
-    </a>
-    <a class="tool-card" href="/tools/regex-tester.html">
-      <div class="tool-num">15 / text</div>
-      <h3>Regex Tester</h3>
-      <p>Real-time regex match with highlight. Flags supported.</p>
-    </a>
-    <a class="tool-card" href="/tools/text-diff.html">
-      <div class="tool-num">16 / text</div>
-      <h3>Text Diff</h3>
-      <p>Side-by-side and unified diff. Word/line/char level.</p>
-    </a>
-    <a class="tool-card" href="/tools/case-converter.html">
-      <div class="tool-num">17 / text</div>
-      <h3>Case Converter</h3>
-      <p>camelCase, snake_case, kebab-case, PascalCase.</p>
-    </a>
-    <a class="tool-card" href="/tools/jwt-decoder.html">
-      <div class="tool-num">18 / auth</div>
-      <h3>JWT Decoder</h3>
-      <p>Decode header, payload, signature. No verification.</p>
-    </a>
-    <a class="tool-card" href="/tools/password-generator.html">
-      <div class="tool-num">19 / security</div>
-      <h3>Password Generator</h3>
-      <p>Cryptographically strong passwords. Custom charset.</p>
-    </a>
-    <a class="tool-card" href="/tools/lorem-ipsum.html">
-      <div class="tool-num">20 / text</div>
-      <h3>Lorem Ipsum</h3>
-      <p>Generate placeholder text. Words / sentences / paragraphs.</p>
-    </a>
+<section class="wrap" style="padding: var(--s-6) 0; margin-top: var(--s-5)">
+  <div class="eyebrow">all 22 tools &middot; 6 categories</div>
+  <h2>$ ls tools/</h2>
+  <div class="cat-pills" aria-label="Categories">
+    <a class="cat-pill" href="/tools/"><span>encoding</span><span class="cat-pill-n">04</span></a>
+    <a class="cat-pill" href="/tools/"><span>hash</span><span class="cat-pill-n">02</span></a>
+    <a class="cat-pill" href="/tools/"><span>formatter</span><span class="cat-pill-n">05</span></a>
+    <a class="cat-pill" href="/tools/"><span>converter</span><span class="cat-pill-n">05</span></a>
+    <a class="cat-pill" href="/tools/"><span>generator</span><span class="cat-pill-n">04</span></a>
+    <a class="cat-pill" href="/tools/"><span>text</span><span class="cat-pill-n">02</span></a>
   </div>
-</section>
-
-<section class="wrap cta-section">
-  <div class="cta-box">
-    <div class="eyebrow" style="justify-content: center">ready?</div>
-    <h2>$ open tools/</h2>
-    <p>No signup, no email, no friction. Just open a tool and go.</p>
-    <a class="btn primary" href="/tools/">browse the toolbox &rarr;</a>
+  <div class="tools-v2" id="toolsV2">
+    <a class="tool-v2" href="/tools/uuid-generator.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">01 / encoding</div>
+      <div class="t-name">UUID Generator</div>
+      <p class="t-desc">v1 / v4 / v5 / v7. Bulk mode, JSON / CSV / SQL output.</p>
+    </a>
+    <a class="tool-v2" href="/tools/base64.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">02 / encoding</div>
+      <div class="t-name">Base64 Encode / Decode</div>
+      <p class="t-desc">URL-safe variant. Full UTF-8 support.</p>
+    </a>
+    <a class="tool-v2" href="/tools/url-encoder.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">03 / encoding</div>
+      <div class="t-name">URL Encoder / Decoder</div>
+      <p class="t-desc">Percent-encode and decode URLs.</p>
+    </a>
+    <a class="tool-v2" href="/tools/html-escape.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">04 / encoding</div>
+      <div class="t-name">HTML Escape / Unescape</div>
+      <p class="t-desc">Safe for templates. Entity-level control.</p>
+    </a>
+    <a class="tool-v2" href="/tools/md5-hash.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">05 / hash</div>
+      <div class="t-name">MD5 Hash Generator</div>
+      <p class="t-desc">Hex output. Use only for non-security checksums.</p>
+    </a>
+    <a class="tool-v2" href="/tools/sha-hash.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">06 / hash</div>
+      <div class="t-name">SHA Hash Generator</div>
+      <p class="t-desc">SHA-1, SHA-256, SHA-512. HMAC mode.</p>
+    </a>
+    <a class="tool-v2" href="/tools/json-formatter.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">07 / formatter</div>
+      <div class="t-name">JSON Formatter &amp; Validator</div>
+      <p class="t-desc">Format, minify, validate. Parse error reporting.</p>
+    </a>
+    <a class="tool-v2" href="/tools/markdown-to-html.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">08 / formatter</div>
+      <div class="t-name">Markdown to HTML</div>
+      <p class="t-desc">Convert Markdown to clean HTML. Live preview.</p>
+    </a>
+    <a class="tool-v2" href="/tools/sql-formatter.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">09 / formatter</div>
+      <div class="t-name">SQL Formatter</div>
+      <p class="t-desc">Beautify SQL. Uppercase keywords, custom indent.</p>
+    </a>
+    <a class="tool-v2" href="/tools/css-formatter.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">10 / formatter</div>
+      <div class="t-name">CSS Formatter / Minifier</div>
+      <p class="t-desc">Beautify or minify CSS with custom indent.</p>
+    </a>
+    <a class="tool-v2" href="/tools/xml-formatter.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">11 / formatter</div>
+      <div class="t-name">XML Formatter / Validator</div>
+      <p class="t-desc">Format and beautify XML with error reporting.</p>
+    </a>
+    <a class="tool-v2" href="/tools/unix-timestamp.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">12 / converter</div>
+      <div class="t-name">Unix Timestamp</div>
+      <p class="t-desc">Seconds / ms. Live current time. Local + UTC.</p>
+    </a>
+    <a class="tool-v2" href="/tools/timezone-converter.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">13 / converter</div>
+      <div class="t-name">Timezone Converter</div>
+      <p class="t-desc">Convert between any two IANA timezones.</p>
+    </a>
+    <a class="tool-v2" href="/tools/case-converter.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">14 / converter</div>
+      <div class="t-name">Case Converter</div>
+      <p class="t-desc">camelCase / snake_case / kebab-case / PascalCase.</p>
+    </a>
+    <a class="tool-v2" href="/tools/password-generator.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">15 / generator</div>
+      <div class="t-name">Password Generator</div>
+      <p class="t-desc">Cryptographically secure. Length &amp; charset.</p>
+    </a>
+    <a class="tool-v2" href="/tools/lorem-ipsum.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">16 / generator</div>
+      <div class="t-name">Lorem Ipsum</div>
+      <p class="t-desc">Words / sentences / paragraphs.</p>
+    </a>
+    <a class="tool-v2" href="/tools/regex-tester.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">17 / generator</div>
+      <div class="t-name">Regex Tester</div>
+      <p class="t-desc">Live match highlighting, capture groups, flags.</p>
+    </a>
+    <a class="tool-v2" href="/tools/jwt-decoder.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">18 / text</div>
+      <div class="t-name">JWT Decoder</div>
+      <p class="t-desc">Decode header / payload. No signature check.</p>
+    </a>
+    <a class="tool-v2" href="/tools/cron-parser.html">
+      <span class="t-arrow">&rarr;</span>
+      <div class="t-num">19 / text</div>
+      <div class="t-name">Cron Parser</div>
+      <p class="t-desc">Human-readable cron + next 5 runs.</p>
+    </a>
   </div>
 </section>
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <a class="logo" href="/">
-          <span class="logo-mark">AT</span>
-          <span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span>
-        </a>
-        <p class="dim">Developer tools, made simple.</p>
-      </div>
-      <div>
-        <h4>tools</h4>
-        <ul>
-          <li><a href="/tools/uuid-generator.html">UUID Generator</a></li>
-          <li><a href="/tools/base64.html">Base64</a></li>
-          <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
-          <li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li>
-          <li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>learn</h4>
-        <ul>
-          <li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li>
-          <li><a href="/blog/base64-explained.html">Base64 Explained</a></li>
-          <li><a href="/blog/jwt-structure.html">JWT Structure</a></li>
-          <li><a href="/blog/cron-syntax.html">Cron Syntax</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>site</h4>
-        <ul>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/privacy/">Privacy</a></li>
-          <li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source</a></li>
-          <li><a href="/rss.xml">RSS</a></li>
-        </ul>
-      </div>
+    <div class="footer-stats">
+      <span><strong>22</strong> tools live</span>
+      <span><strong>0</strong> bytes uploaded</span>
+      <span><strong>0</strong> cookies set</span>
+      <span><strong>MIT</strong> license</span>
     </div>
-    <p class="copyright">&copy; 2026 anan.zh.kg &middot; hosted on github pages &middot; v1.0</p>
+    <p class="footer-meta">
+      <span>&copy; 2026 anan.zh.kg &mdash; independent, not affiliated with any vendor.</span>
+      <span class="links">
+        <a href="/tools/">tools</a>
+        <a href="/blog/">blog</a>
+        <a href="/about/">about</a>
+        <a href="/privacy/">privacy</a>
+        <a href="https://github.com/qq136692547-cmyk/anan-devtools">source</a>
+      </span>
+    </p>
   </div>
 </footer>
-<script src="/assets/js/shared.js"></script>
+
+<script>
+// Tab switcher
+(function(){
+  const tabs = document.querySelectorAll('.demo-tab');
+  const panels = document.querySelectorAll('.demo-tabpanel');
+  function activate(name) {
+    tabs.forEach(t => { const a = t.dataset.tab === name; t.classList.toggle('is-active', a); t.setAttribute('aria-selected', a ? 'true' : 'false'); });
+    panels.forEach(p => { const a = p.dataset.panel === name; p.classList.toggle('is-active', a); if (a) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); } });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.tab)));
+  // Map tab key shortcuts
+  const map = { b:'base64', u:'uuid', j:'json', t:'jwt', c:'cron' };
+  document.addEventListener('keydown', e => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+    const k = e.key.toLowerCase();
+    if (map[k]) { activate(map[k]); e.preventDefault(); }
+  });
+})();
+
+// Command palette
+(function(){
+  const input = document.getElementById('cmdSearch');
+  const box = document.getElementById('cmdResults');
+  const tools = [
+    {n:'UUID Generator', c:'encoding', u:'/tools/uuid-generator.html', k:['uuid']},
+    {n:'Base64 Encode / Decode', c:'encoding', u:'/tools/base64.html', k:['base64']},
+    {n:'URL Encoder / Decoder', c:'encoding', u:'/tools/url-encoder.html', k:['url','percent']},
+    {n:'HTML Escape', c:'encoding', u:'/tools/html-escape.html', k:['html','escape','entity']},
+    {n:'MD5 Hash', c:'hash', u:'/tools/md5-hash.html', k:['md5']},
+    {n:'SHA Hash', c:'hash', u:'/tools/sha-hash.html', k:['sha','sha256','sha512']},
+    {n:'JSON Formatter', c:'formatter', u:'/tools/json-formatter.html', k:['json']},
+    {n:'Markdown to HTML', c:'formatter', u:'/tools/markdown-to-html.html', k:['markdown','md']},
+    {n:'SQL Formatter', c:'formatter', u:'/tools/sql-formatter.html', k:['sql']},
+    {n:'CSS Formatter', c:'formatter', u:'/tools/css-formatter.html', k:['css']},
+    {n:'XML Formatter', c:'formatter', u:'/tools/xml-formatter.html', k:['xml']},
+    {n:'Unix Timestamp', c:'converter', u:'/tools/unix-timestamp.html', k:['unix','timestamp','epoch']},
+    {n:'Timezone Converter', c:'converter', u:'/tools/timezone-converter.html', k:['timezone','tz']},
+    {n:'Case Converter', c:'converter', u:'/tools/case-converter.html', k:['case','camel','snake','kebab']},
+    {n:'Password Generator', c:'generator', u:'/tools/password-generator.html', k:['password']},
+    {n:'Lorem Ipsum', c:'generator', u:'/tools/lorem-ipsum.html', k:['lorem','ipsum','placeholder']},
+    {n:'Regex Tester', c:'generator', u:'/tools/regex-tester.html', k:['regex','regexp']},
+    {n:'JWT Decoder', c:'text', u:'/tools/jwt-decoder.html', k:['jwt','token']},
+    {n:'Cron Parser', c:'text', u:'/tools/cron-parser.html', k:['cron']},
+  ];
+  function render(q){
+    const ql = q.trim().toLowerCase();
+    const list = !ql ? tools.slice(0, 6) : tools.filter(t => t.n.toLowerCase().includes(ql) || t.c.toLowerCase().includes(ql) || t.k.some(x => x.includes(ql)));
+    if (!list.length) { box.innerHTML = '<div class="cmd-empty">No tools match &ldquo;'+q.replace(/[<>&"]/g,'')+'&rdquo; &middot; try &ldquo;json&rdquo;, &ldquo;base64&rdquo;, &ldquo;jwt&rdquo;.</div>'; return; }
+    box.innerHTML = list.slice(0, 8).map(t => '<a class="cmd-result" href="'+t.u+'" role="option"><span>'+t.n+'</span><span class="cmd-cat">'+t.c+'</span></a>').join('');
+  }
+  input.addEventListener('focus', () => render(input.value));
+  input.addEventListener('input', () => render(input.value));
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); input.focus(); input.select(); }
+    if (e.key === 'Escape' && document.activeElement === input) input.blur();
+  });
+  // Click outside to close
+  document.addEventListener('click', e => { if (!e.target.closest('.cmd-bar')) input.blur(); });
+  render('');
+})();
+</script>
 </body>
 </html>
