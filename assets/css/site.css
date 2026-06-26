@@ -1321,3 +1321,102 @@ pre.json, pre.yaml, pre.code {
 /* ---- caret / blink (existing) ---- */
 .blink { display: inline-block; width: 8px; height: 1em; background: var(--accent); margin-left: 4px; vertical-align: text-bottom; animation: blink 1s steps(2) infinite; }
 @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+/* ============================================================
+   TOOL WINDOW — glass shell (v3)
+   Aligns tool pages with the terminal-IDE design system:
+   windowed tool card with macOS traffic lights + LIVE pill
+   ============================================================ */
+.tool-calc {
+  scroll-margin-top: 60px;
+}
+.tool-calc .container {
+  max-width: var(--max-w);
+  margin: var(--s-6) auto;
+  padding: 0 var(--s-5);
+}
+.tool-window {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.tool-titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: 10px var(--s-4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--ink-soft);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tool-traffic {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.tool-traffic span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink-dim);
+}
+.tool-traffic span:nth-child(1) { background: #FF5F57; }
+.tool-traffic span:nth-child(2) { background: #FEBC2E; }
+.tool-traffic span:nth-child(3) { background: #28C840; }
+.tool-title-text {
+  flex: 1;
+  text-align: center;
+  color: var(--ink-soft);
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.tool-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border-radius: 3px;
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--good);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  flex-shrink: 0;
+}
+.tool-body {
+  padding: 0;
+}
+.tool-body .tool-section {
+  padding: var(--s-5);
+}
+.tool-body .tool-section > .tool-prose {
+  margin-top: var(--s-5);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  max-width: 70ch;
+}
+.tool-body .related-section {
+  border-top: 1px solid var(--line);
+  padding: var(--s-4) var(--s-5);
+  background: var(--bg);
+}
+.tool-body .related-section .related-grid {
+  margin-top: var(--s-3);
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .tool-calc .container { padding: 0 var(--s-3); }
+  .tool-titlebar { font-size: .72rem; padding: 8px var(--s-3); }
+  .tool-traffic span { width: 8px; height: 8px; gap: 4px; }
+  .tool-body .tool-section { padding: var(--s-3); }
+  .tool-body .related-section { padding: var(--s-3); }
+}
