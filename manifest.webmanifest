@@ -1,0 +1,12 @@
+{
+  "name": "anan.zh.kg — Developer Tools",
+  "short_name": "anan",
+  "description": "Free online developer tools. No login. No tracking.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0a1f",
+  "theme_color": "#0e0a1f",
+  "icons": [
+    {"src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}
