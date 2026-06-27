@@ -1,19 +1,19 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>anan.zh.kg &mdash; Developer Tools, Made Simple</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Free online developer tools: UUID generator, Base64 encoder, JSON formatter, JWT decoder, Unix timestamp converter, regex tester and 18+ more. No login. No tracking. Open source.">
+<meta name="description" content="Free online developer tools: UUID generator, Base64, JSON formatter, JWT decoder, Unix timestamp, regex tester and 14+ more. No login, no tracking, open source.">
 <meta name="keywords" content="uuid generator, base64 encoder, json formatter, jwt decoder, unix timestamp, regex tester, developer tools">
 <link rel="canonical" href="https://anan.zh.kg/">
 <meta property="og:title" content="anan.zh.kg &mdash; Developer Tools, Made Simple">
-<meta property="og:description" content="20 client-side developer tools. No login. No tracking.">
+<meta property="og:description" content="Free online developer tools: UUID generator, Base64, JSON formatter, JWT decoder, Unix timestamp, regex tester and 14+ more. No login, no tracking, open source.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anan.zh.kg/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="anan.zh.kg — Developer Tools, Made Simple">
-<meta name="twitter:description" content="Free online developer tools: UUID generator, Base64 encoder, JSON formatter, JWT decoder, Unix timestamp converter, regex tester and 18+ more. No login. No tracking. Open source.">
+<meta name="twitter:description" content="Free online developer tools: UUID generator, Base64, JSON formatter, JWT decoder, Unix timestamp, regex tester and 14+ more. No login, no tracking, open source.">
 <meta name="twitter:image" content="https://anan.zh.kg/assets/images/og-default.jpg">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -154,7 +154,7 @@
         <div class="demo-panel">
           <div class="demo-label"><span>// input &middot; utf-8</span><span class="demo-status">live</span></div>
 <pre class="demo-code"><span class="tok-com"># Base64 encoder &middot; reads bytes, returns ascii</span>
-<span class="tok-key">input</span>  = <span class="tok-str">"Hello, anan.zh.kg! 馃檪"</span>
+<span class="tok-key">input</span>  = <span class="tok-str">"Hello, anan.zh.kg! 😀"</span>
 <span class="tok-key">bytes</span>  = utf8(input)
 <span class="tok-key">output</span> = base64(bytes)
 
@@ -164,7 +164,7 @@
         <div class="demo-panel">
           <div class="demo-label"><span>// output &middot; 24 chars</span><span class="demo-status">valid</span></div>
 <pre class="demo-code"><span class="tok-pun">{</span>
-  <span class="tok-key">"input"</span>:  <span class="tok-str">"Hello, anan.zh.kg! 馃檪"</span>,
+  <span class="tok-key">"input"</span>:  <span class="tok-str">"Hello, anan.zh.kg! 😀"</span>,
   <span class="tok-key">"bytes"</span>:  <span class="tok-num">22</span>,
   <span class="tok-key">"output"</span>: <span class="tok-str">"SGVsbG8sIGFuYW4uemgua2ch8J+YgQ=="</span>,
   <span class="tok-key">"urlsafe"</span>: <span class="tok-bool">false</span>,
@@ -173,7 +173,7 @@
 
 <span class="tok-com"># decoded back &harr; 0 loss</span>
 <span class="tok-key">decoded</span> = decode(<span class="tok-str">"SGVsbG8&hellip;"</span>)
-assert decoded == input  <span class="tok-com">锟?ok</span></pre>
+assert decoded == input  <span class="tok-com">&#10003;ok</span></pre>
         </div>
       </div>
 
@@ -224,7 +224,7 @@ assert decoded == input  <span class="tok-com">锟?ok</span></pre>
   <span class="tok-key">"updated"</span>: <span class="tok-str">"2026-06-26"</span>
 <span class="tok-pun">}</span>
 
-<span class="tok-com"># 26 bytes &rarr; 142 bytes 锟?readable</span></pre>
+<span class="tok-com"># 26 bytes &rarr; 142 bytes &#10003;readable</span></pre>
         </div>
       </div>
 
@@ -250,7 +250,7 @@ assert decoded == input  <span class="tok-com">锟?ok</span></pre>
   <span class="tok-key">"exp"</span>: <span class="tok-num">1722067200</span>
 <span class="tok-pun">}</span>
 
-<span class="tok-com">// signature 锟?verify on your server</span></pre>
+<span class="tok-com">// signature &#10003;verify on your server</span></pre>
         </div>
       </div>
 

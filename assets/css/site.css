@@ -1,6 +1,6 @@
-﻿/* ============================================================
-   anan.zh.kg 闁?visual system v2
-   "Terminal-meets-IDE" 闁?80s terminal + modern editor
+/* ============================================================
+   anan.zh.kg —visual system v2
+   "Terminal-meets-IDE" —80s terminal + modern editor
    
    Signature: monospace ASCII art banners + dot grid background
    Avoids: cream+terracotta / black+acid-green / broadsheet
@@ -10,22 +10,22 @@
    ============================================================ */
 
 :root {
-  /* Color tokens 闁?4 hex */
+  /* Color tokens —4 hex */
   --bg:         #0B0E13;  /* deeper terminal black */
   --surface:    #12161D;  /* card surface */
   --surface-2:  #1A1F29;  /* raised surface */
   --line:       #232831;  /* hairlines */
-  --ink:        #E8EAED;  /* primary text 闁?cool white */
+  --ink:        #E8EAED;  /* primary text —cool white */
   --ink-soft:   #9CA3AF;  /* secondary */
   --ink-dim:    #5C6370;  /* tertiary */
-  --accent:     #FF6B1A;  /* ember 闁?kept for brand consistency */
+  --accent:     #FF6B1A;  /* ember —kept for brand consistency */
   --accent-2:   #FFB454;  /* accent hover */
   --accent-bg:  rgba(255, 107, 26, 0.08);
   --good:       #4ADE80;
   --bad:        #F87171;
   --info:       #60A5FA;
 
-  /* Type 闁?2 roles */
+  /* Type —2 roles */
   --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
@@ -50,7 +50,7 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Signature: subtle dot grid 闁?terminal CRT scanline vibe */
+  /* Signature: subtle dot grid —terminal CRT scanline vibe */
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -58,7 +58,7 @@ body {
   font-feature-settings: 'cv11', 'ss01';
 }
 
-/* Selection 闁?ember */
+/* Selection —ember */
 ::selection { background: var(--accent); color: var(--bg); }
 
 /* Reduced motion */
@@ -82,7 +82,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--s-5); }
 
 /* ============================================================
-   HEADER 闁?terminal-style with prompt
+   HEADER —terminal-style with prompt
    ============================================================ */
 .site-header {
   background: rgba(11, 14, 19, 0.85);
@@ -140,7 +140,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 }
 
 /* ============================================================
-   EYEBROW 闁?terminal tag style
+   EYEBROW —terminal tag style
    ============================================================ */
 .eyebrow {
   display: inline-flex; align-items: center; gap: var(--s-2);
@@ -158,7 +158,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 }
 
 /* ============================================================
-   HERO 闁?signature ASCII art banner + thesis headline
+   HERO —signature ASCII art banner + thesis headline
    ============================================================ */
 .hero {
   padding: var(--s-8) 0 var(--s-8);
@@ -230,7 +230,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .meta-line .dot { color: var(--accent); margin: 0 6px; }
 
 /* ============================================================
-   BUTTONS 闁?sharp + monospace
+   BUTTONS —sharp + monospace
    ============================================================ */
 .btn {
   display: inline-flex; align-items: center; gap: var(--s-2);
@@ -272,7 +272,7 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .cta-row { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-top: var(--s-3); }
 
 /* ============================================================
-   TOOL CARDS 闁?denser, terminal-influenced
+   TOOL CARDS —denser, terminal-influenced
    ============================================================ */
 .tools-grid {
   display: grid;
