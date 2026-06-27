@@ -1420,3 +1420,142 @@ pre.json, pre.yaml, pre.code {
   .tool-body .tool-section { padding: var(--s-3); }
   .tool-body .related-section { padding: var(--s-3); }
 }
+
+/* ===== Email subscribe (anan) ===== */
+.subscribe-section { padding: var(--s-7) var(--s-5); }
+.subscribe {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: var(--s-6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.subscribe h2 {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  margin-bottom: var(--s-2);
+}
+.subscribe > p {
+  color: var(--ink-soft);
+  font-size: .9rem;
+  margin-bottom: var(--s-4);
+}
+.subscribe-form {
+  display: flex;
+  gap: var(--s-2);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.subscribe-form input[type=email] {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  color: var(--ink);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.subscribe-form input[type=email]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+.subscribe-form input[type=email]::placeholder { color: var(--ink-dim); }
+.subscribe-done {
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  color: var(--good);
+  display: none;
+  margin: var(--s-3) 0 0;
+}
+.subscribe-wrap.done .subscribe-form { display: none; }
+.subscribe-wrap.done .subscribe-done { display: block; }
+
+/* ===== Inline subscribe (anan tool pages) ===== */
+.subscribe-inline-anan {
+  margin-top: var(--s-5);
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.subscribe-inline-anan .si-label {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  color: var(--ink-soft);
+  margin: 0 0 var(--s-3);
+}
+.subscribe-inline-anan .si-label .dim { color: var(--ink-dim); }
+.subscribe-inline-anan .subscribe-form { justify-content: flex-start; max-width: none; }
+.subscribe-inline-anan .subscribe-form input[type=email] { min-width: 180px; flex: 1; max-width: 320px; }
+.subscribe-inline-anan .subscribe-done { margin-top: var(--s-2); }
+
+/* ===== Next step recommendation bar (anan tool pages) ===== */
+.nextstep {
+  max-width: 880px;
+  margin: var(--s-6) auto 0;
+}
+.nextstep-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: var(--s-3);
+}
+.nextstep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-3);
+}
+.nextstep-card {
+  position: relative;
+  display: block;
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.nextstep-card:hover {
+  background: var(--surface-2, var(--surface));
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: var(--ink);
+}
+.nextstep-name {
+  display: block;
+  font-family: var(--font-display, var(--font-mono));
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+  padding-right: 22px;
+  letter-spacing: -0.01em;
+}
+.nextstep-desc {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.nextstep-arrow {
+  position: absolute;
+  top: var(--s-4); right: var(--s-4);
+  color: var(--ink-dim);
+  transition: color .15s ease, transform .15s ease;
+}
+.nextstep-card:hover .nextstep-arrow { color: var(--accent); transform: translateX(3px); }
+.nextstep-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .nextstep-grid { grid-template-columns: 1fr; }
+}

@@ -32,4 +32,18 @@
     if (el) el.value = '';
     el.dispatchEvent(new Event('input', {bubbles:true}));
   });
+
+  // Subscribe form mock (anan)
+  document.addEventListener('submit', function(e){
+    var form = e.target.closest('.subscribe-form');
+    if (!form) return;
+    e.preventDefault();
+    var email = form.querySelector('input[type=email]');
+    if (!email || !email.value || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) {
+      if (email) { email.focus(); email.style.borderColor = 'var(--bad)'; }
+      return;
+    }
+    var wrap = form.closest('.subscribe-wrap');
+    if (wrap) wrap.classList.add('done');
+  });
 })();
