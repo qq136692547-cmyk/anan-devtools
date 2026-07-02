@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UUID v4 vs v7: When to Switch (and When Not To) | anan</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="UUID v7 (RFC 9562) fixes v4's biggest weakness — database index fragmentation. Benchmarks show 2-10x better INSERT throughput. Here's when to switch.">
+<meta name="keywords" content="uuid v4, uuid v7, rfc 9562, database performance, primary key, postgresql, mysql">
+<link rel="canonical" href="https://anan.zh.kg/blog/uuid-v4-vs-v7.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<meta property="og:title" content="UUID v4 vs v7: When to Switch (and When Not To)">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://anan.zh.kg/assets/images/og-default.jpg">
+<meta property="og:url" content="https://anan.zh.kg/blog/uuid-v4-vs-v7.html">
+<meta property="og:description" content="UUID v7 (RFC 9562) fixes v4's biggest weakness — database index fragmentation. Here's when to switch.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UUID v4 vs v7: When to Switch (and When Not To)">
+<meta name="twitter:description" content="UUID v7 (RFC 9562) fixes v4's biggest weakness — database index fragmentation. Here's when to switch.">
+<meta name="twitter:image" content="https://anan.zh.kg/assets/images/og-default.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"UUID v4 vs v7: When to Switch","url":"https://anan.zh.kg/blog/uuid-v4-vs-v7.html","datePublished":"2026-06-30","author":{"@type":"Organization","name":"anan.zh.kg"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://anan.zh.kg/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://anan.zh.kg/blog/"},{"@type":"ListItem","position":3,"name":"UUID v4 vs v7","item":"https://anan.zh.kg/blog/uuid-v4-vs-v7.html"}]}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header"><div class="wrap header-inner"><a class="logo" href="/"><span class="logo-mark">AT</span><span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span></a><nav class="primary-nav"><a href="/tools/">tools</a><a href="/blog/" class="active">blog</a><a href="/about/">about</a></nav></div></header>
+<main id="main"><article class="blog-article"><div class="wrap"><div class="breadcrumbs"><a href="/">~</a> / <a href="/blog/">blog</a> / <span>UUID, comparison</span></div>
+<header class="article-head"><div class="eyebrow">COMPARISON</div><h1>UUID v4 vs v7: When to Switch<span class="blink"></span></h1><div class="article-meta"><span class="meta-date">2026-06-30</span><span class="meta-sep">&middot;</span><span class="meta-time">8 min read</span></div></header>
+<div class="article-body">
+<p>If you've written backend code, you've generated millions of UUIDs. Database primary keys, API request IDs, session tokens, distributed system identifiers — they're everywhere.</p>
+<p>But here's a question most developers never stop to ask: <strong>which UUID version should you actually be using?</strong></p>
+<p>For years the default answer was v4. Random bytes, good enough, move on. Then UUID v7 landed in <a href="https://www.rfc-editor.org/rfc/rfc9562">RFC 9562</a> in May 2024, and it changes the math in ways that matter at scale. Let's settle it.</p>
+<h2>UUID v4: The Random Standard</h2>
+<p>UUID v4 is pure randomness — 122 random bits with 6 bits reserved for version and variant metadata.</p>
+<pre class="mono">f47ac10b-58cc-4372-a567-0d8b62691e10
+         ^^^^
+         version 4</pre>
+<p><strong>Strengths</strong>: dead simple to generate, statistically unique (2<sup>122</sup> values), needs zero coordination between systems, and leaks no information.</p>
+<p><strong>Weakness</strong>: completely random means terrible for database indexing. No natural ordering, no extractable metadata, and chronic B-tree fragmentation.</p>
+<h2>UUID v7: Time-Ordered by Design</h2>
+<p>UUID v7 was built specifically to fix v4's sort-order problem.</p>
+<pre class="mono">019526de-a3c0-7cc0-b2e8-4a1b3c5d7e9f
+^^^^^^^^ ^^^^
+timestamp  version 7</pre>
+<p>The layout:</p>
+<pre class="mono">|  48 bits   | 4 |  12 bits  | 2 |    62 bits     |
+| timestamp  |ver|  rand_a   |var|    rand_b      |</pre>
+<p>The first 48 bits are the current Unix timestamp in milliseconds. The remaining 62 bits are random. Because the timestamp leads, v7 values come out <strong>naturally time-ordered</strong>. Lexicographic sort equals chronological sort.</p>
+<h2>The Database Performance Story</h2>
+<h3>The problem with v4 in databases</h3>
+<p>When you use UUID v4 as a primary key in a B-tree-indexed table, every INSERT hits a random index page, causing page splits, cache misses, write amplification, and index bloat.</p>
+<h3>How v7 fixes it</h3>
+<p>Time-ordered values mean new rows append to the <strong>end</strong> of the B-tree: sequential writes, better cache utilization, fewer page splits, smaller indexes. Benchmarks show <strong>2–10x better INSERT performance</strong> with v7 on PostgreSQL and MySQL.</p>
+<p>Generate v4 and v7 side by side with our <a href="/tools/uuid-generator.html">UUID Generator</a>.</p>
+<h2>Extracting the Timestamp</h2>
+<p>Read the creation time directly from the ID:</p>
+<pre class="mono">function extractTimestamp(uuidV7) {
+  const hex = uuidV7.replace(/-/g, '');
+  return new Date(parseInt(hex.substring(0, 12), 16));
+}</pre>
+<p>That's free auditing — useful for debugging distributed event flows without an extra column.</p>
+<h2>Generating UUIDs in Practice</h2>
+<p><strong>Node.js</strong>: <code>import { v7 as uuidv7 } from 'uuid';</code></p>
+<p><strong>Python</strong>: <code>from uuid_extensions import uuid7</code></p>
+<p><strong>PostgreSQL 17+</strong>: <code>SELECT uuid_generate_v7();</code></p>
+<p>For quick one-offs, use our <a href="/tools/uuid-generator.html">UUID Generator</a> — v4 and v7 in bulk, one-click copy.</p>
+<h2>When to Use Which</h2>
+<table><tr><th>Scenario</th><th>Recommendation</th></tr><tr><td>Database primary key</td><td><strong>v7</strong></td></tr><tr><td>API request tracing</td><td><strong>v7</strong></td></tr><tr><td>Event sourcing</td><td><strong>v7</strong></td></tr><tr><td>Session tokens</td><td><strong>v4</strong></td></tr><tr><td>Password reset tokens</td><td><strong>v4</strong></td></tr><tr><td>Share links</td><td><strong>v4</strong></td></tr></table>
+<p>Rule of thumb: <strong>indexed ID → v7. Secret or token → v4.</strong></p>
+<h2>Should You Migrate Existing v4 Columns?</h2>
+<p>No. Leave v4 where it lives. Use v7 for new tables and let the system age into it naturally.</p>
+<h2>TL;DR</h2>
+<table><tr><th></th><th>v4</th><th>v7</th></tr><tr><td>Standard</td><td>RFC 4122 (2005)</td><td>RFC 9562 (2024)</td></tr><tr><td>Time-ordered</td><td>❌</td><td>✅</td></tr><tr><td>DB performance</td><td>Poor at scale</td><td>Excellent</td></tr><tr><td>Best for</td><td>Tokens, secrets</td><td>Primary keys, events</td></tr></table>
+<p>If you're starting a new project and your IDs will be primary keys, <strong>v7 is the better default</strong>.</p>
+</div>
+<aside class="article-cta"><p>$ try it now &rarr;</p><a class="btn primary" href="/tools/uuid-generator.html">open the UUID Generator &rarr;</a></aside>
+</div></article></main>
+<footer class="site-footer"><div class="wrap"><div class="footer-grid"><div><a class="logo" href="/"><span class="logo-mark">AT</span><span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span></a><p class="dim">Developer tools, made simple.</p></div>
+<div><h4>tools</h4><ul><li><a href="/tools/uuid-generator.html">UUID Generator</a></li><li><a href="/tools/base64.html">Base64</a></li><li><a href="/tools/json-formatter.html">JSON Formatter</a></li><li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li><li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li></ul></div>
+<div><h4>learn</h4><ul><li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li><li><a href="/blog/uuid-v4-vs-v7.html">UUID v4 vs v7</a></li><li><a href="/blog/base64-explained.html">Base64 Explained</a></li><li><a href="/blog/jwt-structure.html">JWT Structure</a></li></ul></div>
+<div><h4>site</h4><ul><li><a href="/about/">About</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source</a></li><li><a href="/rss.xml">RSS</a></li></ul></div></div>
+<p class="copyright">&copy; 2026 anan.zh.kg &middot; hosted on github pages &middot; v1.0</p></div></footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>
