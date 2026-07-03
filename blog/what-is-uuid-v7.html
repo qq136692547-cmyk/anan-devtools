@@ -29,9 +29,41 @@
   "url": "https://anan.zh.kg/blog/what-is-uuid-v7.html",
   "datePublished": "2026-06-27",
   "author": {
-    "@type": "Organization",
-    "name": "anan.zh.kg"
+    "@type": "Person",
+    "name": "AT"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is UUID v7 and why does it exist?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UUID v7 is a time-sortable UUID standardized in RFC 9562 (May 2024). It exists to fix the database indexing problem of UUID v4 by embedding a 48-bit Unix timestamp in milliseconds at the start of the ID."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is UUID v7 better than v4 for databases?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. v7 UUIDs are time-ordered, so B-tree inserts are append-only rather than random. Benchmarks show up to 7x fewer page splits on PostgreSQL and MySQL."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does UUID v7 support browser generation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As of 2026, no browser ships crypto.randomUUID() for v7. You need a small library or custom code using crypto.getRandomValues() and Date.now()."
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -88,10 +120,12 @@
         <span class="meta-date">2026-06-24</span>
         <span class="meta-sep">&middot;</span>
         <span class="meta-time">5 min read</span>
+        <span class="meta-sep">&middot;</span>
+        <span class="meta-author">By AT</span>
       </div>
     </header>
     <div class="article-body">
-<p>UUID v7 is the newest member of the UUID family, standardized in <strong>RFC 9562 in May 2024</strong>. It solves the biggest practical problem with UUID v4: <strong>unpredictable insertion order in databases</strong>.</p>
+<p>UUID v7 is the newest member of the UUID family, standardized in <strong><a href="https://www.rfc-editor.org/rfc/rfc9562" target="_blank" rel="noopener">RFC 9562 in May 2024</a></strong>. It solves the biggest practical problem with UUID v4: <strong>unpredictable insertion order in databases</strong>.</p>
 
 <h2>The problem with UUID v4</h2>
 <p>UUID v4 is 122 bits of pure randomness. It is the de-facto standard for most applications, but it has one major drawback:</p>
@@ -137,9 +171,25 @@
 </ul>
 
 <h2>Browser support</h2>
-<p>As of 2026, no browser ships <code>crypto.randomUUID()</code> for v7. The function always returns v4. For v7, you need a small library or a few lines of custom code using <code>crypto.getRandomValues()</code> and <code>Date.now()</code>.</p>
+<p>As of 2026, no browser ships <code>crypto.randomUUID()</code> for v7. The function always returns v4. For v7, you need a small library or a few lines of custom code using <code>crypto.getRandomValues()</code> and <code>Date.now()</code>. See the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID" target="_blank" rel="noopener">MDN Crypto documentation</a> for current browser support.</p>
 
 <p>Try generating v7 UUIDs with our <a href="/tools/uuid-generator.html">UUID Generator</a>.</p>
+
+<section class="faq-section" style="margin-top:40px; padding:24px; background:rgba(255,255,255,0.03); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+  <h2 style="font-size:1.3em; margin-bottom:16px;">Frequently Asked Questions</h2>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: What is UUID v7 and why does it exist?</h3>
+    <p style="color:var(--ink-soft);">UUID v7 is a time-sortable UUID standardized in <a href="https://www.rfc-editor.org/rfc/rfc9562" target="_blank" rel="noopener">RFC 9562 (May 2024)</a>. It exists to fix the database indexing problem of UUID v4 by embedding a 48-bit Unix timestamp in milliseconds at the start of the ID.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: Is UUID v7 better than v4 for databases?</h3>
+    <p style="color:var(--ink-soft);">Yes. v7 UUIDs are time-ordered, so B-tree inserts are append-only rather than random. Benchmarks show up to 7x fewer page splits on PostgreSQL and MySQL. Learn more from <a href="https://www.rfc-editor.org/rfc/rfc9562" target="_blank" rel="noopener">the official RFC 9562</a>.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: Should I migrate existing v4 columns to v7?</h3>
+    <p style="color:var(--ink-soft);">No. Leave v4 where it lives. Use v7 for new tables and let the system age into it naturally. See our <a href="/blog/uuid-v4-vs-v7.html">UUID v4 vs v7 comparison</a> for detailed migration advice.</p>
+  </div>
+</section>
     </div>
     <aside class="article-cta">
       <p>$ try it now &rarr;</p>

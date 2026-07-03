@@ -29,9 +29,41 @@
   "url": "https://anan.zh.kg/blog/cron-syntax.html",
   "datePublished": "2026-06-27",
   "author": {
-    "@type": "Organization",
-    "name": "anan.zh.kg"
+    "@type": "Person",
+    "name": "AT"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does */5 * * * * mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means run every 5 minutes. The */5 in the minute field means every step of 5 minutes into the hour."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I handle DST changes with cron?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cron jobs can be skipped or run twice during DST transitions. Use UTC timezone (TZ=Etc/UTC) or your distribution's cronie with timezone support to avoid issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if a cron job takes longer than the interval?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiple instances can run simultaneously. Use file locks (flock) or a job queue to prevent overlapping runs and resource exhaustion."
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -88,6 +120,8 @@
         <span class="meta-date">2026-06-24</span>
         <span class="meta-sep">&middot;</span>
         <span class="meta-time">5 min read</span>
+        <span class="meta-sep">&middot;</span>
+        <span class="meta-author">By AT</span>
       </div>
     </header>
     <div class="article-body">
@@ -96,12 +130,12 @@
 <h2>The 5 fields</h2>
 <p>A standard cron expression has 5 space-separated fields:</p>
 <pre class="mono">* * * * *  command
-| | | | |
-| | | | +----- day of week (0-6, Sunday=0)
-| | | +------- month (1-12)
-| | +--------- day of month (1-31)
-| +----------- hour (0-23)
-+------------- minute (0-59)</pre>
+|| | | | |
+|| | | | +----- day of week (0-6, Sunday=0)
+|| | | +------- month (1-12)
+|| | +--------- day of month (1-31)
+|| +----------- hour (0-23)
+|+------------- minute (0-59)</pre>
 <p>There is also an extended 6-field syntax used by some schedulers (Quartz, Spring) that adds seconds at the front.</p>
 
 <h2>Special characters</h2>
@@ -143,6 +177,22 @@
 <p><strong>Overlapping runs:</strong> If a job takes longer than the cron interval, multiple instances can run simultaneously. Use file locks (<code>flock</code>) or a queue.</p>
 
 <p>Parse and test cron expressions with our <a href="/tools/cron-parser.html">Cron Parser</a>.</p>
+
+<section class="faq-section" style="margin-top:40px; padding:24px; background:rgba(255,255,255,0.03); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+  <h2 style="font-size:1.3em; margin-bottom:16px;">Frequently Asked Questions</h2>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: What does */5 * * * * mean?</h3>
+    <p style="color:var(--ink-soft);">It means run every 5 minutes. The */5 is a step value: start at minute 0 and run every 5 minutes (at :00, :05, :10, and so on). See the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators" target="_blank" rel="noopener">cron expression guide on MDN</a> for more examples.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: How do I handle DST changes with cron?</h3>
+    <p style="color:var(--ink-soft);">Cron jobs can be skipped or run twice during DST transitions. Use UTC timezone (TZ=Etc/UTC) or your distribution's cronie with timezone support to avoid issues. <a href="https://crontab.guru/" target="_blank" rel="noopener">crontab.guru</a> is a useful tool to visualize cron timings.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: What's the difference between cron and systemd timers?</h3>
+    <p style="color:var(--ink-soft);">systemd timers are the modern replacement for cron on Linux. They support calendar events, monotonic timers, persistent scheduling across reboots, and better logging. But cron is still simpler for straightforward scheduled tasks and works on every Unix system including macOS.</p>
+  </div>
+</section>
     </div>
     <aside class="article-cta">
       <p>$ try it now &rarr;</p>

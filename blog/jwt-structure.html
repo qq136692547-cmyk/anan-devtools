@@ -29,9 +29,41 @@
   "url": "https://anan.zh.kg/blog/jwt-structure.html",
   "datePublished": "2026-06-27",
   "author": {
-    "@type": "Organization",
-    "name": "anan.zh.kg"
+    "@type": "Person",
+    "name": "AT"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is JWT encrypted? Can I read the payload?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. JWTs are not encrypted. The payload is Base64URL-encoded, not encrypted. Anyone with the token can decode and read the payload. For sensitive data, use JWE (Encryption) instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What algorithms does JWT support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JWT supports HS256 (HMAC shared secret), RS256/ES256 (asymmetric RSA/ECDSA), and EdDSA. Never use the 'none' algorithm in production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I verify a JWT signature?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Split the token on dots, decode header and payload, check the algorithm is expected, verify the signature with the appropriate key, then check exp, nbf, iss, and aud claims."
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -88,6 +120,8 @@
         <span class="meta-date">2026-06-24</span>
         <span class="meta-sep">&middot;</span>
         <span class="meta-time">7 min read</span>
+        <span class="meta-sep">&middot;</span>
+        <span class="meta-author">By AT</span>
       </div>
     </header>
     <div class="article-body">
@@ -97,8 +131,8 @@
 <p>A JWT is three Base64URL-encoded JSON objects, joined by dots:</p>
 <pre class="mono">header.payload.signature</pre>
 <p>For example:</p>
-<pre class="mono">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-  .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+<pre class="mono">eyJhbG...VCJ9
+  .eyJzdW...IyfQ
   .SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</pre>
 <p>Each part is independently Base64URL-decodable. There is no encryption &mdash; the payload is plaintext, readable by anyone with the token.</p>
 
@@ -164,6 +198,22 @@
 </ol>
 
 <p>Inspect any JWT with our <a href="/tools/jwt-decoder.html">JWT Decoder</a>.</p>
+
+<section class="faq-section" style="margin-top:40px; padding:24px; background:rgba(255,255,255,0.03); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+  <h2 style="font-size:1.3em; margin-bottom:16px;">Frequently Asked Questions</h2>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: Is JWT encrypted? Can I read the payload?</h3>
+    <p style="color:var(--ink-soft);">No. JWTs are not encrypted. The payload is Base64URL-encoded, not encrypted. Anyone with the token can decode and read it. For sensitive data, use JWE (Encryption) instead. See the <a href="https://datatracker.ietf.org/doc/html/rfc7519" target="_blank" rel="noopener">JWT RFC 7519</a> for the full spec.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: What's the difference between JWT and JWS?</h3>
+    <p style="color:var(--ink-soft);">JWT (JSON Web Token) is the high-level concept. JWS (JSON Web Signature) is the specific mechanism used for signing. Most JWTs in API auth are technically JWS tokens.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: How long should a JWT live?</h3>
+    <p style="color:var(--ink-soft);">Access tokens should live 15-60 minutes. Refresh tokens can live days to weeks. Longer is riskier &mdash;if a JWT leaks, the attacker has access until it expires.</p>
+  </div>
+</section>
     </div>
     <aside class="article-cta">
       <p>$ try it now &rarr;</p>

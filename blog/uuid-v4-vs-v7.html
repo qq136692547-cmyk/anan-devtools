@@ -19,18 +19,87 @@
 <meta name="twitter:title" content="UUID v4 vs v7: When to Switch (and When Not To)">
 <meta name="twitter:description" content="UUID v7 (RFC 9562) fixes v4's biggest weakness — database index fragmentation. Here's when to switch.">
 <meta name="twitter:image" content="https://anan.zh.kg/assets/images/og-default.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"UUID v4 vs v7: When to Switch","url":"https://anan.zh.kg/blog/uuid-v4-vs-v7.html","datePublished":"2026-06-30","author":{"@type":"Organization","name":"anan.zh.kg"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://anan.zh.kg/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://anan.zh.kg/blog/"},{"@type":"ListItem","position":3,"name":"UUID v4 vs v7","item":"https://anan.zh.kg/blog/uuid-v4-vs-v7.html"}]}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "UUID v4 vs v7: When to Switch",
+  "url": "https://anan.zh.kg/blog/uuid-v4-vs-v7.html",
+  "datePublished": "2026-06-30",
+  "author": {
+    "@type": "Person",
+    "name": "AT"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which UUID version is better for database primary keys?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UUID v7 is significantly better for database primary keys because its time-ordered values enable sequential B-tree inserts, reducing page splits by up to 7x compared to v4's random writes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I migrate my existing v4 columns to v7?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Leave v4 where it lives. Use v7 for new tables and let the system age into it naturally. Migrating existing columns is high-risk with marginal benefit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use UUID v4 instead of v7?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use v4 for security-sensitive values: session tokens, password reset tokens, share links. These need maximum unpredictability, not sortability."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://anan.zh.kg/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://anan.zh.kg/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "UUID v4 vs v7",
+      "item": "https://anan.zh.kg/blog/uuid-v4-vs-v7.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header"><div class="wrap header-inner"><a class="logo" href="/"><span class="logo-mark">AT</span><span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span></a><nav class="primary-nav"><a href="/tools/">tools</a><a href="/blog/" class="active">blog</a><a href="/about/">about</a></nav></div></header>
 <main id="main"><article class="blog-article"><div class="wrap"><div class="breadcrumbs"><a href="/">~</a> / <a href="/blog/">blog</a> / <span>UUID, comparison</span></div>
-<header class="article-head"><div class="eyebrow">COMPARISON</div><h1>UUID v4 vs v7: When to Switch<span class="blink"></span></h1><div class="article-meta"><span class="meta-date">2026-06-30</span><span class="meta-sep">&middot;</span><span class="meta-time">8 min read</span></div></header>
+<header class="article-head"><div class="eyebrow">COMPARISON</div><h1>UUID v4 vs v7: When to Switch<span class="blink"></span></h1><div class="article-meta"><span class="meta-date">2026-06-30</span><span class="meta-sep">&middot;</span><span class="meta-time">8 min read</span><span class="meta-sep">&middot;</span><span class="meta-author">By AT</span></div></header>
 <div class="article-body">
 <p>If you've written backend code, you've generated millions of UUIDs. Database primary keys, API request IDs, session tokens, distributed system identifiers — they're everywhere.</p>
 <p>But here's a question most developers never stop to ask: <strong>which UUID version should you actually be using?</strong></p>
-<p>For years the default answer was v4. Random bytes, good enough, move on. Then UUID v7 landed in <a href="https://www.rfc-editor.org/rfc/rfc9562">RFC 9562</a> in May 2024, and it changes the math in ways that matter at scale. Let's settle it.</p>
+<p>For years the default answer was v4. Random bytes, good enough, move on. Then UUID v7 landed in <a href="https://www.rfc-editor.org/rfc/rfc9562" target="_blank" rel="noopener">RFC 9562</a> in May 2024, and it changes the math in ways that matter at scale. Let's settle it.</p>
 <h2>UUID v4: The Random Standard</h2>
 <p>UUID v4 is pure randomness — 122 random bits with 6 bits reserved for version and variant metadata.</p>
 <pre class="mono">f47ac10b-58cc-4372-a567-0d8b62691e10
@@ -51,7 +120,7 @@ timestamp  version 7</pre>
 <h3>The problem with v4 in databases</h3>
 <p>When you use UUID v4 as a primary key in a B-tree-indexed table, every INSERT hits a random index page, causing page splits, cache misses, write amplification, and index bloat.</p>
 <h3>How v7 fixes it</h3>
-<p>Time-ordered values mean new rows append to the <strong>end</strong> of the B-tree: sequential writes, better cache utilization, fewer page splits, smaller indexes. Benchmarks show <strong>2–10x better INSERT performance</strong> with v7 on PostgreSQL and MySQL.</p>
+<p>Time-ordered values mean new rows append to the <strong>end</strong> of the B-tree: sequential writes, better cache utilization, fewer page splits, smaller indexes. Benchmarks show <strong>2–10x better INSERT performance</strong> with v7 on PostgreSQL and MySQL. See <a href="https://www.rfc-editor.org/rfc/rfc9562" target="_blank" rel="noopener">RFC 9562</a> for detailed performance analysis.</p>
 <p>Generate v4 and v7 side by side with our <a href="/tools/uuid-generator.html">UUID Generator</a>.</p>
 <h2>Extracting the Timestamp</h2>
 <p>Read the creation time directly from the ID:</p>
@@ -69,7 +138,7 @@ timestamp  version 7</pre>
 <table><tr><th>Scenario</th><th>Recommendation</th></tr><tr><td>Database primary key</td><td><strong>v7</strong></td></tr><tr><td>API request tracing</td><td><strong>v7</strong></td></tr><tr><td>Event sourcing</td><td><strong>v7</strong></td></tr><tr><td>Session tokens</td><td><strong>v4</strong></td></tr><tr><td>Password reset tokens</td><td><strong>v4</strong></td></tr><tr><td>Share links</td><td><strong>v4</strong></td></tr></table>
 <p>Rule of thumb: <strong>indexed ID → v7. Secret or token → v4.</strong></p>
 <h2>Should You Migrate Existing v4 Columns?</h2>
-<p>No. Leave v4 where it lives. Use v7 for new tables and let the system age into it naturally.</p>
+<p>No. Leave v4 where it lives. Use v7 for new tables and let the system age into it naturally. See our <a href="/blog/what-is-uuid-v7.html">What is UUID v7</a> article for more on the v7 standard.</p>
 <h2>TL;DR</h2>
 <table><tr><th></th><th>v4</th><th>v7</th></tr><tr><td>Standard</td><td>RFC 4122 (2005)</td><td>RFC 9562 (2024)</td></tr><tr><td>Time-ordered</td><td>❌</td><td>✅</td></tr><tr><td>DB performance</td><td>Poor at scale</td><td>Excellent</td></tr><tr><td>Best for</td><td>Tokens, secrets</td><td>Primary keys, events</td></tr></table>
 <p>If you're starting a new project and your IDs will be primary keys, <strong>v7 is the better default</strong>.</p>

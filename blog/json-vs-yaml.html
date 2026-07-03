@@ -29,9 +29,41 @@
   "url": "https://anan.zh.kg/blog/json-vs-yaml.html",
   "datePublished": "2026-06-27",
   "author": {
-    "@type": "Organization",
-    "name": "anan.zh.kg"
+    "@type": "Person",
+    "name": "AT"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is JSON always faster than YAML?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. JSON parsers are typically 5-10x faster than YAML parsers. JSON's strict syntax allows for simple, deterministic parsing, while YAML's flexible syntax requires more complex state machines."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Norway problem in YAML?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "YAML 1.1 parsed 'no' as boolean false, so 'country: Norway' became '{country: false}'. YAML 1.2 (2009) fixed this, but many parsers default to 1.1. Always quote strings when in doubt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you use JSON and YAML together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Most JSON is valid YAML. The YAML spec has a !!json tag to embed JSON inline. Many tools like OpenAPI support both formats."
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -88,6 +120,8 @@
         <span class="meta-date">2026-06-24</span>
         <span class="meta-sep">&middot;</span>
         <span class="meta-time">4 min read</span>
+        <span class="meta-sep">&middot;</span>
+        <span class="meta-author">By AT</span>
       </div>
     </header>
     <div class="article-body">
@@ -152,7 +186,7 @@ maintainer:
 </ul>
 
 <h2>The Norway problem</h2>
-<p>YAML 1.1 had a notorious surprise: <code>no</code> is parsed as boolean false. So <code>country: Norway</code> became <code>{country: false}</code>. YAML 1.2 (2009) fixed this, but many parsers default to 1.1 for compatibility. <strong>Always quote your strings</strong> when in doubt: <code>country: "Norway"</code>.</p>
+<p>YAML 1.1 had a notorious surprise: <code>no</code> is parsed as boolean false. So <code>country: Norway</code> became <code>{country: false}</code>. YAML 1.2 (2009) fixed this, but many parsers default to 1.1 for compatibility. <strong>Always quote your strings</strong> when in doubt: <code>country: "Norway"</code>. See <a href="https://yaml.org/spec/1.2.2/" target="_blank" rel="noopener">the official YAML 1.2 spec</a> for details.</p>
 
 <h2>Practical advice</h2>
 <p>Use <strong>JSON</strong> for any data that crosses a network boundary or is consumed by a program.</p>
@@ -160,6 +194,22 @@ maintainer:
 <p>If you need both, the YAML spec has a <code>!!json</code> tag to embed JSON inline, and most JSON files are valid YAML (with caveats around comments and strictness).</p>
 
 <p>Format your JSON with our <a href="/tools/json-formatter.html">JSON Formatter</a>.</p>
+
+<section class="faq-section" style="margin-top:40px; padding:24px; background:rgba(255,255,255,0.03); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+  <h2 style="font-size:1.3em; margin-bottom:16px;">Frequently Asked Questions</h2>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: Is JSON always faster than YAML?</h3>
+    <p style="color:var(--ink-soft);">Yes. JSON parsers are typically 5-10x faster than YAML parsers because JSON's strict grammar is simple to parse deterministically, while YAML's flexible syntax requires more complex state machines. For high-performance contexts like API gateways or real-time data pipelines, JSON is the better choice.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: What is the Norway problem in YAML?</h3>
+    <p style="color:var(--ink-soft);">YAML 1.1 parsed 'no' as boolean false, so 'country: Norway' became '{country: false}'. YAML 1.2 (2009) fixed this, but many parsers still default to 1.1. Always quote your strings when in doubt. The <a href="https://yaml.org/spec/1.2.2/" target="_blank" rel="noopener">YAML 1.2.2 spec</a> explains the change.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: Can you embed JSON inside a YAML file?</h3>
+    <p style="color:var(--ink-soft);">Yes! Most JSON documents are valid YAML, and the YAML spec includes a !!json tag for explicit JSON embedding. Many tools like OpenAPI and Terraform accept both formats for the same configuration.</p>
+  </div>
+</section>
     </div>
     <aside class="article-cta">
       <p>$ try it now &rarr;</p>

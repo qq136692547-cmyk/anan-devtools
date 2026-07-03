@@ -29,9 +29,41 @@
   "url": "https://anan.zh.kg/blog/base64-explained.html",
   "datePublished": "2026-06-27",
   "author": {
-    "@type": "Organization",
-    "name": "anan.zh.kg"
+    "@type": "Person",
+    "name": "AT"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Base64 encryption?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Base64 is not encryption. It is a binary-to-text encoding. There is no key, no secret — anyone who sees a Base64 string can decode it instantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much larger is Base64 output than input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Base64 output is always 33% larger than the input (rounded up to the nearest multiple of 4). 3 bytes of input produce 4 characters of output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is URL-safe Base64?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "URL-safe Base64 (RFC 4648) replaces + with - and / with _, and typically omits padding. This is the variant used in JWTs and modern web APIs."
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -88,6 +120,8 @@
         <span class="meta-date">2026-06-24</span>
         <span class="meta-sep">&middot;</span>
         <span class="meta-time">6 min read</span>
+        <span class="meta-sep">&middot;</span>
+        <span class="meta-author">By AT</span>
       </div>
     </header>
     <div class="article-body">
@@ -107,7 +141,7 @@
 <p>If the input is not a multiple of 3 bytes, the output is padded with <code>=</code> characters to make it a multiple of 4.</p>
 
 <h2>URL-safe Base64</h2>
-<p>Standard Base64 uses <code>+</code> and <code>/</code>, which have special meaning in URLs and file names. The URL-safe variant (RFC 4648 &sect;5) replaces them with <code>-</code> and <code>_</code>, and typically omits the padding.</p>
+<p>Standard Base64 uses <code>+</code> and <code>/</code>, which have special meaning in URLs and file names. The URL-safe variant (<a href="https://www.rfc-editor.org/rfc/rfc4648" target="_blank" rel="noopener">RFC 4648 &sect;5</a>) replaces them with <code>-</code> and <code>_</code>, and typically omits the padding.</p>
 <p>This is the variant used in JWTs, JWS, JWE, and most modern web APIs.</p>
 
 <h2>Common uses</h2>
@@ -116,7 +150,7 @@
   <li><strong>Data URIs</strong> &mdash; <code>data:image/png;base64,iVBORw0K...</code> embeds images in HTML/CSS</li>
   <li><strong>MIME email</strong> &mdash; attachments are Base64-encoded so they survive text-only mail servers</li>
   <li><strong>SSH keys</strong> &mdash; <code>-----BEGIN RSA PUBLIC KEY-----</code> contains Base64-encoded ASN.1</li>
-  <li><strong>Basic auth</strong> &mdash; <code>Authorization: Basic dXNlcjpwYXNz</code> is just <code>base64("user:pass")</code></li>
+  <li><strong>Basic auth</strong> &mdash; <code>Authorization: Basic dXNlcj...ode> is just <code>base64(\"user:pass\")</code></li>
   <li><strong>Git objects</strong> &mdash; Git stores content as Base64 internally</li>
 </ul>
 
@@ -124,6 +158,22 @@
 <p>Base64 has a 33% size overhead. For large binary blobs (images, video), prefer actual binary transfer (multipart/form-data, raw bytes over WebSocket). Use Base64 only when you must fit binary data into a text-only context.</p>
 
 <p>Encode and decode with our <a href="/tools/base64.html">Base64 tool</a>.</p>
+
+<section class="faq-section" style="margin-top:40px; padding:24px; background:rgba(255,255,255,0.03); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+  <h2 style="font-size:1.3em; margin-bottom:16px;">Frequently Asked Questions</h2>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: Is Base64 encryption?</h3>
+    <p style="color:var(--ink-soft);">No. Base64 is not encryption. It is a binary-to-text encoding. There is no key, no secret &mdash;anyone who sees a Base64 string can decode it instantly. For security, use AES or ChaCha20 encryption.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: How much larger is Base64 output than input?</h3>
+    <p style="color:var(--ink-soft);">Base64 output is always 33% larger than the input (rounded up to the nearest multiple of 4). 3 bytes of input produce 4 characters of output. <a href="https://developer.mozilla.org/en-US/docs/Glossary/Base64" target="_blank" rel="noopener">MDN has a full explanation</a>.</p>
+  </div>
+  <div style="margin-bottom:20px;">
+    <h3 style="font-size:1.05em; margin-bottom:6px; color:var(--accent);">Q: What is URL-safe Base64?</h3>
+    <p style="color:var(--ink-soft);">URL-safe Base64 (<a href="https://www.rfc-editor.org/rfc/rfc4648" target="_blank" rel="noopener">RFC 4648</a>) replaces + with - and / with _, and typically omits padding. This is the variant used in JWTs and modern web APIs.</p>
+  </div>
+</section>
     </div>
     <aside class="article-cta">
       <p>$ try it now &rarr;</p>
