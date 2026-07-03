@@ -59,6 +59,20 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Are these tools really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 20 tools are completely free. No paid tiers, no usage limits, no hidden charges. Open source under MIT."}},
+    {"@type":"Question","name":"Is my data safe? Do you store anything?","acceptedAnswer":{"@type":"Answer","text":"Your data never leaves your browser. Every tool runs client-side. No data uploaded, no analytics, no cookies, no tracking."}},
+    {"@type":"Question","name":"Do I need to create an account?","acceptedAnswer":{"@type":"Answer","text":"No account, no signup, no email required. Just open any tool and start using it."}},
+    {"@type":"Question","name":"How is this different from other dev tool sites?","acceptedAnswer":{"@type":"Answer","text":"Most dev tool sites process input on their servers. anan processes everything in your browser with no ads and no trackers."}},
+    {"@type":"Question","name":"Can I contribute or request a new tool?","acceptedAnswer":{"@type":"Answer","text":"The code is open source on GitHub. Pull requests and feature requests are welcome."}},
+    {"@type":"Question","name":"Is there a UUID v7 generator?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our UUID Generator at anan.zh.kg supports v1, v4, v5 and v7 with bulk generation."}}
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -447,11 +461,43 @@ assert decoded == input  <span class="tok-com">&#10003;ok</span></pre>
     </a>
     </a>
   </div>
-</section>
+      </div>
+    </section>
 
-<section class="wrap subscribe-section">
-  <div class="subscribe-wrap subscribe">
-    <h2>Get notified when we add new tools</h2>
+    <section class="wrap faq-section" style="padding:var(--s-8) 0">
+      <span class="section-eyebrow" style="color:#00E676">FAQ</span>
+      <h2 class="section-title" style="color:#fff">Common questions.</h2>
+      <p class="section-sub">Questions developers ask about client-side tools, privacy, and how anan works.</p>
+      <div class="faq-v3">
+        <details>
+          <summary>Are these tools really free?<span class="sign" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Yes. All 20 tools are completely free. No paid tiers, no usage limits, no hidden charges. The entire site is open source under MIT license.</p></div>
+        </details>
+        <details>
+          <summary>Is my data safe? Do you store anything?<span class="sign" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Your data never leaves your browser. Every tool runs client-side using vanilla JavaScript. No data is uploaded to any server — we don't use analytics, cookies, or tracking scripts.</p></div>
+        </details>
+        <details>
+          <summary>Do I need to create an account?<span class="sign" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>No account, no signup, no email required. Just open any tool and start using it immediately.</p></div>
+        </details>
+        <details>
+          <summary>How is this different from other dev tool sites?<span class="sign" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Most dev tool sites process your input on their servers — your data is transmitted over the network. anan processes everything in your browser. We also have no ads, no trackers, and every tool loads in under 100ms.</p></div>
+        </details>
+        <details>
+          <summary>Can I contribute or request a new tool?<span class="sign" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>The code is open source on GitHub. Pull requests and feature requests are welcome. We prioritize tools commonly needed but poorly served by existing sites.</p></div>
+        </details>
+        <details>
+          <summary>Is there a UUID v7 generator?<span class="sign" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Yes. Our <a href="/tools/uuid-generator.html">UUID Generator</a> supports v1, v4, v5 and v7, with bulk generation, JSON/CSV/SQL output, and one-click copy.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap subscribe-section">
+      <h2>Get notified when we add new tools</h2>
     <p>New devtools land every few weeks. One email per release&mdash;no spam, unsubscribe anytime.</p>
     <form class="subscribe-form" novalidate>
       <input type="email" name="email" placeholder="you@dev.com" aria-label="Email address" required>
