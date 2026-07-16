@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Regex Performance: Catastrophic Backtracking Explained | anan</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Regex catastrophic backtracking can turn a millisecond match into a minute-long hang. Learn how backtracking works, which patterns trigger it, and how to write safe regexes.">
+<meta name="keywords" content="regex, regular expression, catastrophic backtracking, performance, denial of service, reDoS, regex tester">
+<link rel="canonical" href="https://anan.zh.kg/blog/regex-catastrophic-backtracking.html">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<meta property="og:title" content="Regex Performance: Catastrophic Backtracking Explained">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://anan.zh.kg/assets/images/og-default.jpg">
+<meta property="og:url" content="https://anan.zh.kg/blog/regex-catastrophic-backtracking.html">
+<meta property="og:description" content="Regex catastrophic backtracking explained — what triggers it and how to prevent it.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regex Performance: Catastrophic Backtracking Explained">
+<meta name="twitter:description" content="Regex catastrophic backtracking explained — what triggers it and how to prevent it.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Regex Performance: Catastrophic Backtracking Explained","url":"https://anan.zh.kg/blog/regex-catastrophic-backtracking.html","datePublished":"2026-07-16","author":{"@type":"Person","name":"AT"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is catastrophic backtracking in regex?","acceptedAnswer":{"@type":"Answer","text":"Catastrophic backtracking happens when a regex engine tries an exponentially growing number of ways to match a pattern against a string that nearly matches. A pattern that matches in microseconds on valid input can hang for minutes on invalid input. It is caused by nested quantifiers like (a+)+b."}},
+{"@type":"Question","name":"How do I fix catastrophic backtracking?","acceptedAnswer":{"@type":"Answer","text":"Use atomic groups (?>...) to prevent backtracking, rewrite nested quantifiers as possessive quantifiers ++, or simplify the pattern to avoid ambiguity. Test your regex against both matching and non-matching strings using a regex tester."}},
+{"@type":"Question","name":"Is catastrophic backtracking a security risk?","acceptedAnswer":{"@type":"Answer","text":"Yes. Catastrophic backtracking is the root cause of ReDoS (Regular Expression Denial of Service) attacks, where crafted input causes a server to hang. Any application that runs user-supplied regexes against user-supplied input is vulnerable."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header"><div class="wrap header-inner"><a class="logo" href="/"><span class="logo-mark">AT</span><span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span></a><nav class="primary-nav"><a href="/tools/">tools</a><a href="/blog/" class="active">blog</a><a href="/about/">about</a></nav></div></header>
+<main id="main"><article class="blog-article"><div class="wrap"><div class="breadcrumbs"><a href="/">~</a> / <a href="/blog/">blog</a> / <span>regex, performance</span></div>
+<header class="article-head"><div class="eyebrow">DEEP DIVE</div><h1>Regex Performance: Catastrophic Backtracking Explained<span class="blink"></span></h1><div class="article-meta"><span class="meta-date">2026-07-16</span><span class="meta-sep">&middot;</span><span class="meta-time">7 min read</span><span class="meta-sep">&middot;</span><span class="meta-author">By AT</span></div></header>
+<div class="article-body">
+<p>You write a regex. It passes all your test cases. It works on the happy path. Then someone submits input that looks almost valid but isn't, and the regex that ran in microseconds now takes <strong>40 seconds</strong> to fail.</p>
+<p>That is catastrophic backtracking. It is the single most expensive performance bug in regular expressions, and most developers do not discover it until it hits production. Here is how it works, which patterns trigger it, and how to fix it.</p>
+
+<h2>How Backtracking Works</h2>
+<p>Most regex engines use backtracking: they try a match, and if it fails, they go back and try an alternative path. For simple patterns this is fast. For patterns with nested flexibility, the number of paths grows exponentially.</p>
+<pre class="mono">Pattern: ^(a+)+$
+String:  "aaaaX"</pre>
+<p>The engine tries: 4 a's as one group → fail → 3+1 → fail → 2+2 → fail → 2+1+1 → fail → 1+1+1+1 → fail. For an n-character string, the engine tries approximately <strong>2<sup>n</sup></strong> paths. At n=20 that is a million attempts. At n=30 it is a billion.</p>
+
+<h2>Patterns That Trigger It</h2>
+<table><tr><th>Dangerous Pattern</th><th>Why It Is Dangerous</th></tr>
+<tr><td><code>(a+)+b</code></td><td>Nested quantifiers — the classic trap</td></tr>
+<tr><td><code>(a|aa)+b</code></td><td>Alternatives inside a quantifier</td></tr>
+<tr><td><code>(.*)*b</code></td><td>Wildcard with nested quantifier — matches everything</td></tr>
+<tr><td><code>\s*,\s*</code> on long strings</td><td>Quantifier-heavy splitting</td></tr>
+<tr><td><code>(a+b+c+)+$</code></td><td>Multiple quantified groups</td></tr></table>
+<p>Any pattern where the engine can try many ways to divide the same characters into groups is suspect. The key sign: the pattern matches quickly on valid input and hangs on invalid input that <strong>almost</strong> matches.</p>
+
+<h2>Three Fixes</h2>
+<h3>1. Atomic Groups (?>...)</h3>
+<p>Atomic groups tell the engine: once you match this group, never backtrack into it.</p>
+<pre class="mono">// Before: catastrophic
+^(a+)+b$
+
+// After: safe
+^(?>a+)+b$</pre>
+
+<h3>2. Possessive Quantifiers ++</h3>
+<p>A possessive quantifier matches as many characters as possible and never gives them back.</p>
+<pre class="mono">// Before
+^(a+)+b$
+
+// After
+^(a++)+b$</pre>
+
+<h3>3. Simplify the Pattern</h3>
+<p>Often the best fix is to remove the nested quantifier entirely.</p>
+<pre class="mono">// If you just need one or more a's followed by b:
+// Before (dangerous): ^(a+)+b$
+// After (safe):       ^a+b$</pre>
+
+<h2>Testing for Catastrophic Backtracking</h2>
+<p>Use the <a href="/tools/regex-tester.html">Regex Tester</a> on anan to test your patterns. Run the same regex against a short matching string and a longer non-matching string. If the non-matching test takes noticeably longer, your pattern has a backtracking problem.</p>
+
+<h2>Real-World Impact</h2>
+<p>Cloudflare, Stack Overflow, and multiple programming languages have shipped ReDoS vulnerabilities caused by catastrophic backtracking. The Cloudflare incident in 2019 (CVE-2019-15803) was triggered by a single Regex that matched a 50-character string in microseconds and hung the entire edge network on a 200-character string.</p>
+<p>The fix always follows the same pattern: identify the nested quantifier, add an atomic group, and move on.</p>
+
+<h2>TL;DR</h2>
+<table><tr><th></th><th>Normal Pattern</th><th>Catastrophic Pattern</th></tr>
+<tr><td>Structure</td><td>Linear</td><td>Nested quantifiers</td></tr>
+<tr><td>Performance on bad input</td><td>Linear (O(n))</td><td>Exponential (O(2ⁿ))</td></tr>
+<tr><td>Fix time</td><td>—</td><td>+1 atomic group</td></tr></table>
+<p>If your regex has <code>(something+)+</code>, you have a landmine. Defuse it before production finds it.</p>
+</div>
+<aside class="article-cta"><p>$ try it now &rarr;</p><a class="btn primary" href="/tools/regex-tester.html">open the Regex Tester &rarr;</a></aside>
+</div></article></main>
+<footer class="site-footer"><div class="wrap"><div class="footer-grid"><div><a class="logo" href="/"><span class="logo-mark">AT</span><span class="prompt">~/</span><span class="logo-text">anan<span class="dim">.zh.kg</span></span></a><p class="dim">Developer tools, made simple.</p></div>
+<div><h4>tools</h4><ul><li><a href="/tools/uuid-generator.html">UUID Generator</a></li><li><a href="/tools/base64.html">Base64</a></li><li><a href="/tools/json-formatter.html">JSON Formatter</a></li><li><a href="/tools/jwt-decoder.html">JWT Decoder</a></li><li><a href="/tools/unix-timestamp.html">Unix Timestamp</a></li></ul></div>
+<div><h4>learn</h4><ul><li><a href="/blog/what-is-uuid-v7.html">What is UUID v7</a></li><li><a href="/blog/uuid-v4-vs-v7.html">UUID v4 vs v7</a></li><li><a href="/blog/base64-explained.html">Base64 Explained</a></li><li><a href="/blog/jwt-structure.html">JWT Structure</a></li></ul></div>
+<div><h4>site</h4><ul><li><a href="/about/">About</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="https://github.com/qq136692547-cmyk/anan-devtools">Source</a></li><li><a href="/rss.xml">RSS</a></li></ul></div></div>
+<p class="copyright">&copy; 2026 anan.zh.kg &middot; hosted on github pages &middot; v1.0</p></div></footer>
+<script src="/assets/js/shared.js"></script>
+</body>
+</html>
