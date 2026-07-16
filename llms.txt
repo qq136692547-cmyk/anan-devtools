@@ -1,0 +1,24 @@
+# anan.zh.kg
+
+> 20 free developer tools — UUID, Base64, JSON, JWT, Regex, Cron, and more. 100% client-side, MIT licensed, open source.
+
+## Tools
+
+- [UUID Generator](https://anan.zh.kg/tools/uuid-generator.html): Generate UUID v4 and v7. Bulk mode, JSON/CSV/SQL output.
+- [Base64 Encode / Decode](https://anan.zh.kg/tools/base64.html): URL-safe variant. Full UTF-8 support.
+- [JSON Formatter & Validator](https://anan.zh.kg/tools/json-formatter.html): Format, minify, validate with parse error reporting.
+- [JWT Decoder](https://anan.zh.kg/tools/jwt-decoder.html): Decode header and payload. No signature check.
+- [Regex Tester](https://anan.zh.kg/tools/regex-tester.html): Live match highlighting, capture groups, flags.
+- [Cron Parser](https://anan.zh.kg/tools/cron-parser.html): Human-readable cron explanation and next 5 run times.
+- [HTML Escape / Unescape](https://anan.zh.kg/tools/html-escape.html): Entity-level control for safe templates.
+
+## Guides
+
+- [UUID v4 vs v7](https://anan.zh.kg/blog/uuid-v4-vs-v7.html): When to switch and when not to.
+- [What is UUID v7](https://anan.zh.kg/blog/what-is-uuid-v7.html): The new time-sortable UUID standard.
+- [Base64 Explained](https://anan.zh.kg/blog/base64-explained.html): How Base64 encoding works.
+- [HTML Entities vs Unicode Escapes](https://anan.zh.kg/blog/html-entities-vs-unicode.html): When to use each encoding.
+- [Regex Catastrophic Backtracking](https://anan.zh.kg/blog/regex-catastrophic-backtracking.html): Performance traps and how to fix them.
+- [JWT Structure](https://anan.zh.kg/blog/jwt-structure.html): Visual guide to JWT parts.
+- [Cron Syntax Cheatsheet](https://anan.zh.kg/blog/cron-syntax.html): Every cron pattern you need.
+- [JSON vs YAML](https://anan.zh.kg/blog/json-vs-yaml.html): When to use which format.

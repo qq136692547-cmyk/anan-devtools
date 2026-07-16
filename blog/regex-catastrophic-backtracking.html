@@ -28,6 +28,9 @@
 {"@type":"Question","name":"Is catastrophic backtracking a security risk?","acceptedAnswer":{"@type":"Answer","text":"Yes. Catastrophic backtracking is the root cause of ReDoS (Regular Expression Denial of Service) attacks, where crafted input causes a server to hang. Any application that runs user-supplied regexes against user-supplied input is vulnerable."}}
 ]}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://anan.zh.kg/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://anan.zh.kg/blog/"},{"@type":"ListItem","position":3,"name":"Regex Catastrophic Backtracking"}]}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -80,7 +83,7 @@ String:  "aaaaX"</pre>
 <p>Use the <a href="/tools/regex-tester.html">Regex Tester</a> on anan to test your patterns. Run the same regex against a short matching string and a longer non-matching string. If the non-matching test takes noticeably longer, your pattern has a backtracking problem.</p>
 
 <h2>Real-World Impact</h2>
-<p>Cloudflare, Stack Overflow, and multiple programming languages have shipped ReDoS vulnerabilities caused by catastrophic backtracking. The Cloudflare incident in 2019 (CVE-2019-15803) was triggered by a single Regex that matched a 50-character string in microseconds and hung the entire edge network on a 200-character string.</p>
+<p>Cloudflare, Stack Overflow, and multiple programming languages have shipped ReDoS vulnerabilities caused by catastrophic backtracking. A Cloudflare incident in 2019 was triggered by a single regex that matched a 50-character string in microseconds and hung the entire edge network on a 200-character string.</p>
 <p>The fix always follows the same pattern: identify the nested quantifier, add an atomic group, and move on.</p>
 
 <h2>TL;DR</h2>
